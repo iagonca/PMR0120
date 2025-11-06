@@ -1,5 +1,29 @@
 #include <Arduino.h>
+#include <Arduino.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Keypad.h>
+#define NUM_MAX_USUARIOS 30
+#define TAMANHO_SENHA 5
 
+int num_usuarios = 1;
+
+/*Senha ADM*/
+int senha_adm = 99999;
+/*Matriz de Senhas*/
+int senhas[NUM_MAX_USUARIOS];
+
+/*Definições para o keypad*/
+const byte KEYPAD_ROWS = 4;
+const byte KEYPAD_COLS = 4;
+byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
+byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
+char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
 // definicoes
 #define true 1
 #define false 0
