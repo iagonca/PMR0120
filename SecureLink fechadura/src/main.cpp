@@ -2,12 +2,10 @@
 #include "componentes.h"
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-
-
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
 Led ledVermelho(12);
 Led ledVerde(11);
 Led Lampada(10);
-
 Relay rele(13);
 PIR movimento(7);
 Buzzer buzzer(6);

@@ -13,7 +13,6 @@ char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
   {'7', '8', '9', 'C'},
   {'*', '0', '#', 'D'}
 };
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
 
 class Relay{
   private:
