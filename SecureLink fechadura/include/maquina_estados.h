@@ -76,40 +76,11 @@ typedef struct matriz{
 // inicializacao das funcoes
 void iniciarMaquinaEstados();
 void iniciaSistema();
-int obterEvento();
+
 int obterAcao(int estado, int evento);
 int obterProximoEstado(int estado, int evento);
 void executarAcao(int codigoAcao);
 
-struct transicao {int estado; int evento; int prox_estado; int acao; };
-static const transicao transicoes [] = {
-    {trancada,           pessoaPresente,    emAutenticacao,     a01},
-    {aberta,             portaFechada,      trancada,           a07},
-    {emAutenticacao,     teclaRecebida,     emAutenticacao,     a04},
-    {emAutenticacao,     rfidIncorreto,     alarmeDisparado,    a02},
-    {emAutenticacao,     rfidCorreto,       aberta,             a05},
-    {emAutenticacao,     senhaCorreta,      aberta,             a05},
-    {emAutenticacao,     maxTentativas,     alarmeDisparado,    a02},
-    {emAutenticacao,     senhaAdm,          emConfiguracao,     a06},
-    {alarmeDisparado,    timeOutAlarme,     trancada,           a08},
-    {emConfiguracao,     teclaRecebida,     nenhumEvento,       /**/},
-    {emConfiguracao,     timeOutAguardando, trancada,           /**/},
-    {emConfiguracao,     novoUsuario,       aguardandoInfoNovo, /**/},
-    {emConfiguracao,     editarUsuario,     selecionarUser,     /**/},
-    {aguardandoInfoNovo, teclaRecebida,     nenhumEvento,       /**/},
-    {aguardandoInfoNovo, salvandoDados,     emConfiguracao,     /**/},
-    {aguardandoInfoNovo, timeOutAguardando, emConfiguracao,     /**/},
-    {aguardandoInfoUser, teclaRecebida,     nenhumEvento,       /**/},
-    {aguardandoInfoUser, salvandoDados,     selecionarUser,     /**/},
-    {aguardandoInfoUser, timeOutAguardando, selecionarUser,     /**/},
-    {selecionarUser,     teclaRecebida,     nenhumEvento,       /**/},
-    {selecionarUser,     excluirUsuario,    confirmarExclusao,  /**/},
-    {selecionarUser,     editarInfos,       aguardandoInfoUser, /**/},
-    {selecionarUser,     timeOutAguardando, trancada,           /**/},
-    {confirmarExclusao,  teclaRecebida,     nenhumEvento,       /**/},
-    {confirmarExclusao,  salvandoDados,     selecionarUser,     /**/},
-    {confirmarExclusao,  timeOutAguardando, selecionarUser,     /**/}
-};
 
 matriz matrizTransicaoEstados[numEstados][numEventos];
 
