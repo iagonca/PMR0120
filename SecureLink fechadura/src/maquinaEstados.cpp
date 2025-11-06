@@ -1,7 +1,5 @@
 #include "maquina_estados.h"
 
-matriz matrizTransicaoEstados[numEstados][numEventos];
-
 /*
 int main() {
     // funcao copiada do professor
@@ -46,36 +44,6 @@ void iniciarMaquinaEstados() {
             matrizTransicaoEstados[i][j].acao = nenhumaAcao; // por padrao, nao realiza nenhuma ação
         }
     }
-
-    struct transicao {int estado; int evento; int prox_estado; int acao; };
-    static const transicao transicoes [] = {
-        {trancada,           pessoaPresente,    emAutenticacao,     a01},
-        {aberta,             portaFechada,      trancada,           a07},
-        {emAutenticacao,     teclaRecebida,     emAutenticacao,     a04},
-        {emAutenticacao,     rfidIncorreto,     alarmeDisparado,    a02},
-        {emAutenticacao,     rfidCorreto,       aberta,             a05},
-        {emAutenticacao,     senhaCorreta,      aberta,             a05},
-        {emAutenticacao,     maxTentativas,     alarmeDisparado,    a02},
-        {emAutenticacao,     senhaAdm,          emConfiguracao,     a06},
-        {alarmeDisparado,    timeOutAlarme,     trancada,           a08},
-        {emConfiguracao,     teclaRecebida,     nenhumEvento,       /**/},
-        {emConfiguracao,     timeOutAguardando, trancada,           /**/},
-        {emConfiguracao,     novoUsuario,       aguardandoInfoNovo, /**/},
-        {emConfiguracao,     editarUsuario,     selecionarUser,     /**/},
-        {aguardandoInfoNovo, teclaRecebida,     nenhumEvento,       /**/},
-        {aguardandoInfoNovo, salvandoDados,     emConfiguracao,     /**/},
-        {aguardandoInfoNovo, timeOutAguardando, emConfiguracao,     /**/},
-        {aguardandoInfoUser, teclaRecebida,     nenhumEvento,       /**/},
-        {aguardandoInfoUser, salvandoDados,     selecionarUser,     /**/},
-        {aguardandoInfoUser, timeOutAguardando, selecionarUser,     /**/},
-        {selecionarUser,     teclaRecebida,     nenhumEvento,       /**/},
-        {selecionarUser,     excluirUsuario,    confirmarExclusao,  /**/},
-        {selecionarUser,     editarInfos,       aguardandoInfoUser, /**/},
-        {selecionarUser,     timeOutAguardando, trancada,           /**/},
-        {confirmarExclusao,  teclaRecebida,     nenhumEvento,       /**/},
-        {confirmarExclusao,  salvandoDados,     selecionarUser,     /**/},
-        {confirmarExclusao,  timeOutAguardando, selecionarUser,     /**/}
-    };
 
     for (const auto &t : transicoes) {
         matrizTransicaoEstados[t.estado][t.evento] = {t.prox_estado, t.acao};
