@@ -2,12 +2,10 @@
 #include "componentes.h"
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-
-
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
 Led ledVermelho(12);
 Led ledVerde(11);
 Led Lampada(10);
-
 Relay rele(13);
 PIR movimento(7);
 Buzzer buzzer(6);
@@ -23,36 +21,7 @@ void setup(){
 unsigned long tempo_inicial = millis();
 // codigo principal
 void loop() {
-    // funcao copiada do professor
-    /*
-    int codigoEvento;
-    int codigoAcao;
-    int estado;
-    int eventoInterno;
 
-    estado = ESPERA;
-    eventoInterno = NENHUM_EVENTO;
-
-    iniciaSistema();
-    printf ("Alarme iniciado\n");
-    while (true) {
-        if (eventoInterno == NENHUM_EVENTO) {
-            codigoEvento = obterEvento();
-        } else {
-            codigoEvento = eventoInterno;
-        }
-        if (codigoEvento != NENHUM_EVENTO)
-        {
-        codigoAcao = obterAcao(estado, codigoEvento);
-        estado = obterProximoEstado(estado, codigoEvento);
-        eventoInterno = executarAcao(codigoAcao);
-        printf("Estado: %d Evento: %d Acao:%d\n", estado, codigoEvento, codigoAcao);
-        }
-    } // while true
-
-
-    // se prox.evento == nenhumEvento => evento nao muda (para lembrar de incluir no codigo)
-    return 0;*/
     Serial.print("Detector de Movimento: ");
     Serial.print(movimento.update());
     Serial.print(" Teclado: ");
