@@ -128,36 +128,7 @@ void setup(){
 unsigned long tempo_inicial = millis();
 // codigo principal
 void loop() {
-    // funcao copiada do professor
-    /*
-    int codigoEvento;
-    int codigoAcao;
-    int estado;
-    int eventoInterno;
 
-    estado = ESPERA;
-    eventoInterno = NENHUM_EVENTO;
-
-    iniciaSistema();
-    printf ("Alarme iniciado\n");
-    while (true) {
-        if (eventoInterno == NENHUM_EVENTO) {
-            codigoEvento = obterEvento();
-        } else {
-            codigoEvento = eventoInterno;
-        }
-        if (codigoEvento != NENHUM_EVENTO)
-        {
-        codigoAcao = obterAcao(estado, codigoEvento);
-        estado = obterProximoEstado(estado, codigoEvento);
-        eventoInterno = executarAcao(codigoAcao);
-        printf("Estado: %d Evento: %d Acao:%d\n", estado, codigoEvento, codigoAcao);
-        }
-    } // while true
-
-
-    // se prox.evento == nenhumEvento => evento nao muda (para lembrar de incluir no codigo)
-    return 0;*/
     Serial.print("Detector de Movimento: ");
     Serial.print(movimento.update());
     Serial.print(" Teclado: ");
