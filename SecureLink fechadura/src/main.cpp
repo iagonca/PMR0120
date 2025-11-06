@@ -1,19 +1,18 @@
 #include <Arduino.h>
-#include <Arduino.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 
-#define NUM_MAX_USUARIOS 30
-#define TAMANHO_SENHA 5
+// definicoes
+#define true 1
+#define false 0
+#define numEstados 9
+#define numEventos 16
+// #define numAcoes 0 // preencher
+#define nenhumEvento -1
+#define nenhumaAcao -1
 
-
-/*Senha ADM*/
-int senha_adm = 99999;
-/*Matriz de Senhas*/
-int senhas[NUM_MAX_USUARIOS];
-
-/*Definições para o keypad*/
+//Definições para o keypad
 const byte KEYPAD_ROWS = 4;
 const byte KEYPAD_COLS = 4;
 byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
@@ -127,16 +126,6 @@ Relay rele(13);
 PIR movimento(7);
 Buzzer buzzer(6);
 FimDeCurso portaAberta(0);
-
-// definicoes
-#define true 1
-#define false 0
-
-#define numEstados 9
-#define numEventos 16
-// #define numAcoes 0 // preencher
-#define nenhumEvento -1
-#define nenhumaAcao -1
 
 enum ESTADOS {
   trancada,
