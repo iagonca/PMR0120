@@ -1,4 +1,4 @@
-#ifdef COMPONENTES_H_INCLUDED
+#ifndef COMPONENTES_H_INCLUDED
 #define COMPONENTES_H_INCLUDED
 
 #include <Arduino.h>
