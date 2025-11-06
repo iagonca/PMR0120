@@ -43,26 +43,26 @@ enum EVENTOS {
 
 enum ACOES {
   // colocar as acoes 
-  A01,
-  A02,
-  A03,
-  A04,
-  A05,
-  A06,
-  A07,
-  A08,
-  A09,
-  A10,
-  A11,
-  A12,
-  A13,
-  A14,
-  A15,
-  A16,
-  A17,
-  A18,
-  A19,
-  A20
+  a01,
+  a02,
+  a03,
+  a04,
+  a05,
+  a06,
+  a07,
+  a08,
+  a09,
+  a10,
+  a11,
+  a12,
+  a13,
+  a14,
+  a15,
+  a16,
+  a17,
+  a18,
+  a19,
+  a20
 };
 
 typedef struct matriz{
@@ -90,18 +90,18 @@ int main() {
     int estado;
     int eventoInterno;
 
-    estado = ESPERA;
-    eventoInterno = NENHUM_EVENTO;
+    estado = trancada;
+    eventoInterno = nenhumEvento;
 
     iniciaSistema();
     printf ("Alarme iniciado\n");
     while (true) {
-        if (eventoInterno == NENHUM_EVENTO) {
+        if (eventoInterno == nenhumEvento) {
             codigoEvento = obterEvento();
         } else {
             codigoEvento = eventoInterno;
         }
-        if (codigoEvento != NENHUM_EVENTO)
+        if (codigoEvento != nenhumEvento)
         {
         codigoAcao = obterAcao(estado, codigoEvento);
         estado = obterProximoEstado(estado, codigoEvento);
@@ -128,15 +128,15 @@ void iniciarMaquinaEstados() {
 
     struct transicao {int estado; int evento; int prox_estado; int acao; };
     static const transicao transicoes [] = {
-        {trancada,           pessoaPresente,    emAutenticacao,     A01},
-        {aberta,             portaFechada,      trancada,           A07},
-        {emAutenticacao,     teclaRecebida,     nenhumEvento,       A04},
-        {emAutenticacao,     rfidIncorreto,     alarmeDisparado,    A02},
-        {emAutenticacao,     rfidCorreto,       aberta,             A05},
-        {emAutenticacao,     senhaCorreta,      aberta,             A05},
-        {emAutenticacao,     maxTentativas,     alarmeDisparado,    A02},
-        {emAutenticacao,     senhaAdm,          emConfiguracao,     A06},
-        {alarmeDisparado,    timeOutAlarme,     trancada,           A08},
+        {trancada,           pessoaPresente,    emAutenticacao,     a01},
+        {aberta,             portaFechada,      trancada,           a07},
+        {emAutenticacao,     teclaRecebida,     nenhumEvento,       a04},
+        {emAutenticacao,     rfidIncorreto,     alarmeDisparado,    a02},
+        {emAutenticacao,     rfidCorreto,       aberta,             a05},
+        {emAutenticacao,     senhaCorreta,      aberta,             a05},
+        {emAutenticacao,     maxTentativas,     alarmeDisparado,    a02},
+        {emAutenticacao,     senhaAdm,          emConfiguracao,     a06},
+        {alarmeDisparado,    timeOutAlarme,     trancada,           a08},
         {emConfiguracao,     teclaRecebida,     nenhumEvento,       /**/},
         {emConfiguracao,     timeOutAguardando, trancada,           /**/},
         {emConfiguracao,     novoUsuario,       aguardandoInfoNovo, /**/},
@@ -189,69 +189,69 @@ int obterProximoEstado(int estado, int evento) {
 void executarAcao(int codigoAcao) {
     
     switch (codigoAcao) {
-        case A01: // acao a ser realizada
+        case a01: // acao a ser realizada
             // coisas a executar dentro da acao 
             printf("Moeda inserida, digite S para iniciar o jogo.\n");
             printf("Ou insira outra moeda para o jogo de 2 jogadores.\n");
             break;
 
-        case A02:
+        case a02:
             //
             break;
         
-        case A03:
+        case a03:
             //
             break;
         
-        case A04:
+        case a04:
             // 
             break;
         
-        case A05:
+        case a05:
             // 
             break;
         
-        case A06:
+        case a06:
             // 
             break;
         
-        case A07:
+        case a07:
             //
             break;
         
-        case A08:
+        case a08:
             //
             break;
         
-        case A09:
+        case a09:
             //
             break;
         
-        case A10:
+        case a10:
             // 
             break;
         
-        case A11:
+        case a11:
             // 
             break;
         
-        case A12:
+        case a12:
             // 
             break;
         
-        case A13:
+        case a13:
             // 
             break;
         
-        case A14:
+        case a14:
             // 
             break;
         
-        case A15:
+        case a15:
             // 
             break;
         
-        case A16:
+        case a16:
             // 
             break;
         
