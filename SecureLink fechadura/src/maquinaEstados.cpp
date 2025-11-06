@@ -56,7 +56,7 @@ void iniciaSistema() {
 
 }
 
-int obterEvento() {
+int obterEvento(int estado, int evento) {
     //
 }
 

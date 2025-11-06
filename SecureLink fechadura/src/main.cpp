@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "componentes.h"
+#include "maquina_estados.h"
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
@@ -12,6 +13,7 @@ Buzzer buzzer(6);
 FimDeCurso portaAberta(0);
 
 void setup(){
+  iniciarMaquinaEstados();
   Serial.begin(115200);
   lcd.init();                     
   lcd.backlight();
@@ -19,6 +21,7 @@ void setup(){
   lcd.print("Ola usuario!");
 }
 unsigned long tempo_inicial = millis();
+
 // codigo principal
 void loop() {
 
