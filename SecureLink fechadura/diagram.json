@@ -79,6 +79,21 @@
       "top": -261.2,
       "left": 456.8,
       "attrs": {}
+    },
+    { "type": "wokwi-slide-switch", "id": "sw1", "top": -101.2, "left": 377.5, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": -240,
+      "left": -249.6,
+      "attrs": { "text": "Relé: Luz Verde = Porta trancada\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text2",
+      "top": -211.2,
+      "left": -249.6,
+      "attrs": { "text": "Chave para direita: Porta Fechada\nChave para Esquerda: Porta Aberta\n" }
     }
   ],
   "connections": [
@@ -126,7 +141,9 @@
     [ "keypad1:C1", "mega:A11", "green", [ "v163.2", "h-278.5" ] ],
     [ "keypad1:C2", "mega:A10", "orange", [ "v172.8", "h-297.6" ] ],
     [ "keypad1:C3", "mega:A9", "gold", [ "v182.4", "h-316.95" ] ],
-    [ "keypad1:C4", "mega:A8", "#8f4814", [ "v192", "h-336.3" ] ]
+    [ "keypad1:C4", "mega:A8", "#8f4814", [ "v192", "h-336.3" ] ],
+    [ "sw1:2", "bb1:bn.25", "black", [ "v0" ] ],
+    [ "sw1:3", "mega:0", "violet", [ "v48", "h-143.8" ] ]
   ],
   "dependencies": {}
 }
