@@ -6,7 +6,6 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 
-#endif
 
 //Definições para o keypad
 const byte KEYPAD_ROWS = 4;
@@ -109,3 +108,7 @@ class FimDeCurso{
       return(digitalRead(pino));
     }
 };
+
+
+
+#endif
