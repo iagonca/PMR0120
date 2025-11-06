@@ -1,6 +1,6 @@
 #include "maquina_estados.h"
 
-
+matriz matrizTransicaoEstados[numEstados][numEventos];
 
 void iniciarMaquinaEstados() {
     int i;
