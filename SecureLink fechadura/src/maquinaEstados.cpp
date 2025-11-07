@@ -1,5 +1,4 @@
 #include "maquina_estados.h"
-
 matriz matrizTransicaoEstados[numEstados][numEventos];
 
 void iniciarMaquinaEstados() {
@@ -47,9 +46,9 @@ void executarAcao(int codigoAcao) {
     
     switch (codigoAcao) {
         case a01: // acao a ser realizada
-            // coisas a executar dentro da acao 
-            printf("Moeda inserida, digite S para iniciar o jogo.\n");
-            printf("Ou insira outra moeda para o jogo de 2 jogadores.\n");
+            
+            Serial.println("PESSOA PRESENTE (freertos)");
+          
             break;
 
         case a02:
@@ -73,6 +72,7 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a07:
+            Serial.println("LED ON");
             //
             break;
         

@@ -5,6 +5,8 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
+#include "maquina_estados.h"
+
 
 
 //Definições para o keypad
@@ -87,12 +89,24 @@ class PIR{
   private:
     int pino;
   public:
+  bool estadoAtual;
+  bool ultimoEstado = 0;
     PIR(int p){
       pino = p;
       pinMode(pino, INPUT);
     }
-    int update(){
-      return(digitalRead(pino));
+    bool update(){
+      estadoAtual = digitalRead(pino);
+      if(estadoAtual != ultimoEstado){
+        if(estadoAtual == 0){
+          Serial.println("Pessoa não presente");
+        }
+        else{
+          Serial.println("Pessoa presente (.h)");
+          acrescentaEvento(millis(),pessoaPresente,0);
+        }
+        ultimoEstado = estadoAtual;
+      }
     }
 };
 
@@ -100,13 +114,16 @@ class FimDeCurso{
   private:
     int pino;
   public:
+    bool estado_inicial = 0;
+    bool estado = 0;
     FimDeCurso(int p){
       pino = p;
       pinMode(pino, INPUT_PULLUP);
     }
     bool update(){
-      return(digitalRead(pino));
+
     }
+   
 };
 
 

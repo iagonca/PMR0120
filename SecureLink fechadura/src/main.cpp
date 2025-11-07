@@ -2,8 +2,22 @@
 #include <Arduino_FreeRTOS.h>
 #include "componentes.h"
 #include "maquina_estados.h"
+#include <queue.h>
 
-/*### FREERTOS ####*/
+
+/*### SETUP COMPONENTES ####*/
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
+Led ledVermelho(12);
+Led ledVerde(11);
+Led Lampada(10);
+Relay rele(13);
+PIR movimento(7);
+Buzzer buzzer(6);
+FimDeCurso portaAberta(0);
+
+
+/*### MÁQUINA DE ESTADOS ###*/
 #define MAX_EVENTO 50
 unsigned long EventoInstante[MAX_EVENTO];
 int EventoTipo[MAX_EVENTO], EventoDado[MAX_EVENTO];
@@ -67,60 +81,85 @@ Evento obterEvento(void)
   return eventoAtual;
 }
 
+/*### FREERTOS ###*/
+#define TAMANHO_FILA 5
 
+int estado = trancada;
+int codigoAcao;
 
+QueueHandle_t filaEventos;
+void taskMaqEstados(void *pvParameters){
+  Evento evento;
 
+  for (;;)
+  {
+    // evento = obterEvento();
+    if (xQueueReceive(filaEventos, &evento, portMAX_DELAY) != pdPASS)
+    {
+      Serial.println("Erro ao receber item da fila");
+      continue;
+    }
 
+    if (evento.getTipo() != nenhumEvento)
+    {
+      Serial.println("Evento!");
+      codigoAcao = obterAcao(estado, evento.getTipo());
+      estado = obterProximoEstado(estado, evento.getTipo());
+      executarAcao(codigoAcao);
+    }
 
+    movimento.update();
+  }
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
-Led ledVermelho(12);
-Led ledVerde(11);
-Led Lampada(10);
-Relay rele(13);
-PIR movimento(7);
-Buzzer buzzer(6);
-FimDeCurso portaAberta(0);
+}
+void taskObterEvento(void *pvParameters);
+void taskBlink(void *pvParameters){
+  for (;;) // A Task shall never return or exit.
+  {
+    ledVerde.ligar();   // turn the LED on (HIGH is the voltage level)
+    vTaskDelay( 1000 / portTICK_PERIOD_MS ); // wait for one second
+    ledVerde.desligar();    // turn the LED off by making the voltage LOW
+    vTaskDelay( 1000 / portTICK_PERIOD_MS ); // wait for one second
+  }
+}
+void taskBotao(void *pvParameters){
+  for(;;)
+  {
+    bool estado = portaAberta.update();
+    Serial.print("Porta aberta: ");
+    Serial.println(estado);
+  }
+}
 
 
 
 void setup(){
   iniciarMaquinaEstados();
+  filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   Serial.begin(115200);
-  lcd.init();                     
-  lcd.backlight();
-  lcd.setCursor(0,0);
-  lcd.print("Ola usuario!");
+  xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
+  //xTaskCreate(taskBotao,"fimDeCurso",128,NULL,1,NULL);
+  xTaskCreate(taskMaqEstados,"Maquina de Estados",128,NULL,2,NULL);
+  xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);
+  vTaskStartScheduler();
+
 }
 unsigned long tempo_inicial = millis();
 
 // codigo principal
 void loop() {
+}
 
-    Serial.print("Detector de Movimento: ");
-    Serial.print(movimento.update());
-    Serial.print(" Teclado: ");
-    Serial.print(keypad.getKey());
-    Serial.print(" Porta: ");
-    if(portaAberta.update() == 0){
-        Serial.println("Fechada");
+void taskObterEvento(void *pvParameters){
+  Evento evento;
+
+  for (;;)
+  {
+    Evento evento = obterEvento();
+
+    if (xQueueSendToBack(filaEventos, &evento, portMAX_DELAY) != pdPASS)
+    {
+      Serial.println("Erro ao enviar item para fila");
     }
-    else Serial.println("Aberta");
-    Lampada.ligar();
-    if(millis()-tempo_inicial >= 500){
-        tempo_inicial = millis();
-        if(rele.estado == 1){
-        rele.desligar();
-        ledVerde.ligar();
-        ledVermelho.desligar();
-        buzzer.desligar();
-        }
-        else{
-        rele.ligar();
-        buzzer.tocar();
-        ledVerde.desligar();
-        ledVermelho.ligar();
-        }
-    }
+  }
 }
