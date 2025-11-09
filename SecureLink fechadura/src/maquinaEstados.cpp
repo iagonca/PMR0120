@@ -62,7 +62,6 @@ int obterEvento(int estado, int evento) {
 
 int obterAcao(int estado, int evento) {
     if (estado < 0 || estado >= numEstados || evento < 0 || evento >= numEventos) {
-        // condicional para garantir que nao seja acessaco uma entrada inexistente na matriz 
         return nenhumaAcao;
     }
     return matrizTransicaoEstados[estado][evento].acao;
@@ -73,76 +72,4 @@ int obterProximoEstado(int estado, int evento) {
         return estado;
     }
     return matrizTransicaoEstados[estado][evento].prox_estado;
-}
-
-void executarAcao(int codigoAcao) {
-    
-    switch (codigoAcao) {
-        case a01: // acao a ser realizada
-            // coisas a executar dentro da acao 
-            printf("Moeda inserida, digite S para iniciar o jogo.\n");
-            printf("Ou insira outra moeda para o jogo de 2 jogadores.\n");
-            break;
-
-        case a02:
-            //
-            break;
-        
-        case a03:
-            //
-            break;
-        
-        case a04:
-            // 
-            break;
-        
-        case a05:
-            // 
-            break;
-        
-        case a06:
-            // 
-            break;
-        
-        case a07:
-            //
-            break;
-        
-        case a08:
-            //
-            break;
-        
-        case a09:
-            //
-            break;
-        
-        case a10:
-            // 
-            break;
-        
-        case a11:
-            // 
-            break;
-        
-        case a12:
-            // 
-            break;
-        
-        case a13:
-            // 
-            break;
-        
-        case a14:
-            // 
-            break;
-        
-        case a15:
-            // 
-            break;
-        
-        case a16:
-            // 
-            break;
-        
-        }
 }
