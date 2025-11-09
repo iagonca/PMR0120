@@ -4,10 +4,17 @@
 #include "maquina_estados.h"
 #include <queue.h>
 
+#define MAX_USUARIOS 20
+#define senha_do_adm 12121
+int senhas[MAX_USUARIOS];
+
 
 /*### SETUP COMPONENTES ####*/
+int senha[5] = {0,0,0,0,0};
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
+Keypad keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
+Teclado teclado(keypad);
+Led ledLigado(9);
 Led ledVermelho(12);
 Led ledVerde(11);
 Led Lampada(10);
@@ -22,6 +29,88 @@ FimDeCurso portaAberta(0);
 unsigned long EventoInstante[MAX_EVENTO];
 int EventoTipo[MAX_EVENTO], EventoDado[MAX_EVENTO];
 int numeroEventos = 0;
+void inicializaSenhas(){
+  for(int i = 0; i<MAX_USUARIOS; i++){
+    senhas[i] = senha_do_adm;
+  }
+}
+void executarAcao(int codigoAcao) {
+    
+    switch (codigoAcao) {
+        case a01: // acao a ser realizada
+            
+            Serial.println("PESSOA PRESENTE (freertos)");
+            Lampada.ligar();
+          
+            break;
+
+        case a02:
+            //
+            Serial.println("ALARME DISPARADO (freertos)");
+            teclado.n_tentativas = 0;
+            break;
+        
+        case a03:
+            //
+            break;
+        
+        case a04:
+            teclado.incluir_na_senha(&senha[0]);
+            // 
+            break;
+        
+        case a05:
+            Serial.println("Senha correta. Seja bem-vindo! (freertos)");
+            // 
+            break;
+        
+        case a06:
+            // 
+            break;
+        
+        case a07:
+            Serial.println("LED ON");
+            //
+            break;
+        
+        case a08:
+            //
+            break;
+        
+        case a09:
+            //
+            break;
+        
+        case a10:
+            // 
+            break;
+        
+        case a11:
+            // 
+            break;
+        
+        case a12:
+            // 
+            break;
+        
+        case a13:
+            // 
+            break;
+        
+        case a14:
+            // 
+            break;
+        
+        case a15:
+            // 
+            break;
+        
+        case a16:
+            // 
+            break;
+        
+        }
+}
 
 void acrescentaEvento(unsigned long instante, int tipo, int dado)
 {
@@ -109,6 +198,7 @@ void taskMaqEstados(void *pvParameters){
     }
 
     movimento.update();
+    teclado.update();
   }
 
 }
@@ -116,29 +206,21 @@ void taskObterEvento(void *pvParameters);
 void taskBlink(void *pvParameters){
   for (;;) // A Task shall never return or exit.
   {
-    ledVerde.ligar();   // turn the LED on (HIGH is the voltage level)
+    ledLigado.ligar();   // turn the LED on (HIGH is the voltage level)
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); // wait for one second
-    ledVerde.desligar();    // turn the LED off by making the voltage LOW
+    ledLigado.desligar();    // turn the LED off by making the voltage LOW
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); // wait for one second
   }
 }
-void taskBotao(void *pvParameters){
-  for(;;)
-  {
-    bool estado = portaAberta.update();
-    Serial.print("Porta aberta: ");
-    Serial.println(estado);
-  }
+void taskBuzzer(void *pvParameters){
+
 }
-
-
-
 void setup(){
   iniciarMaquinaEstados();
+  inicializaSenhas();
   filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   Serial.begin(115200);
   xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
-  //xTaskCreate(taskBotao,"fimDeCurso",128,NULL,1,NULL);
   xTaskCreate(taskMaqEstados,"Maquina de Estados",128,NULL,2,NULL);
   xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);
   vTaskStartScheduler();

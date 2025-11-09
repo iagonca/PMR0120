@@ -7,7 +7,7 @@
 #include <Keypad.h>
 #include "maquina_estados.h"
 
-
+extern int senhas[20];
 
 //Definições para o keypad
 const byte KEYPAD_ROWS = 4;
@@ -19,6 +19,51 @@ char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
   {'4', '5', '6', 'B'},
   {'7', '8', '9', 'C'},
   {'*', '0', '#', 'D'}
+};
+
+class Teclado{
+  private:
+    Keypad keypad;
+  public:
+    char tecla;
+    int counter_digitos_senha = 0;
+    int n_tentativas = 0;
+    char senhac[6];
+    Teclado(Keypad tec) : keypad(tec){
+
+    }
+    void update(){
+      tecla = keypad.getKey();
+      if(tecla != NO_KEY){
+        acrescentaEvento(millis(),teclaRecebida,0);
+      }
+    }
+    void incluir_na_senha(int *senha){
+      int n = tecla-'0';
+      if(tecla == '0') n = 0;
+      *(senha+counter_digitos_senha) = n;
+      senhac[counter_digitos_senha] = tecla;
+      counter_digitos_senha++;
+      
+      if(counter_digitos_senha == 5){
+        /*TRANSFORMAR EM UM INT APENAS*/
+        int senha_decimal = (10000*(*senha)) + (1000*(*(senha+1))) + (100*(*(senha+2))) + (10*(*(senha+3))) + (1*(*(senha+4)));
+        Serial.print("Senha digitada: ");
+        Serial.println(senha_decimal);
+        counter_digitos_senha = 0;
+        /*CHECAR SENHA*/
+        for(int i = 0; i< 20; i++){
+          if(senha_decimal == senhas[i]){
+            Serial.println("Senha correta! Seja bem-vindo!");
+            n_tentativas = 0;
+            acrescentaEvento(millis(),senhaCorreta,3);
+            break;
+          }
+        }
+        n_tentativas++;
+        if(n_tentativas == 5) acrescentaEvento(millis(),maxTentativas,0);
+      }
+    }
 };
 
 class Relay{
@@ -99,7 +144,6 @@ class PIR{
       estadoAtual = digitalRead(pino);
       if(estadoAtual != ultimoEstado){
         if(estadoAtual == 0){
-          Serial.println("Pessoa não presente");
         }
         else{
           Serial.println("Pessoa presente (.h)");
@@ -109,7 +153,7 @@ class PIR{
       }
     }
 };
-
+/*COLOCAR DEBOUNCE TIME NO FIM DE CURSO*/
 class FimDeCurso{
   private:
     int pino;
