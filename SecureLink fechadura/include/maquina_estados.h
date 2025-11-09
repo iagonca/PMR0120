@@ -13,6 +13,8 @@
 #define nenhumEvento -1
 #define nenhumaAcao -1
 
+
+
 enum ESTADOS {
   trancada,
   aberta,
@@ -76,7 +78,7 @@ typedef struct matriz{
 // inicializacao das funcoes
 void iniciarMaquinaEstados();
 void iniciaSistema();
-int obterEvento();
+void acrescentaEvento(unsigned long instante, int tipo, int dado);
 int obterAcao(int estado, int evento);
 int obterProximoEstado(int estado, int evento);
 void executarAcao(int codigoAcao);
@@ -111,6 +113,6 @@ static const transicao transicoes [] = {
     {confirmarExclusao,  timeOutAguardando, selecionarUser,     /**/}
 };
 
-matriz matrizTransicaoEstados[numEstados][numEventos];
+extern matriz matrizTransicaoEstados[numEstados][numEventos];
 
 #endif
