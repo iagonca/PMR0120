@@ -3,10 +3,11 @@
 
 #include <Arduino_FreeRTOS.h>
 #include <queue.h>
+#include <semphr.h>
 //#include "componentes.h"
 
 #define MAX_USUARIOS 20
-#define senhaAdm 123456
+#define senhaAdm 12345
 
 class Evento
 {
@@ -46,6 +47,10 @@ extern byte colPins[KEYPAD_COLS];
 // APENAS DECLARAÇÕES com extern
 extern long senhas[MAX_USUARIOS];
 extern QueueHandle_t filaEventos;
+extern SemaphoreHandle_t xBinarySemaphore;
+extern SemaphoreHandle_t semaforoVermelho;
+extern SemaphoreHandle_t semaforoVerde;
+
 
 /*### SETUP COMPONENTES ####*/
 class LiquidCrystal_I2C;

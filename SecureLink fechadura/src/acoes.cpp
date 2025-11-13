@@ -8,7 +8,10 @@
 
 // extern Led lampada;
 // extern Teclado teclado;
-// extern 
+// extern
+extern bool buzzerLiberado;
+extern bool ledVerdeLiberado;
+extern bool ledVermelhoLiberado;
 
 void executarAcao(int codigoAcao) {
     
@@ -23,12 +26,20 @@ void executarAcao(int codigoAcao) {
         case a02:
             //
             Serial.println("ALARME DISPARADO (freertos)");
+            buzzerLiberado = true;
+            ledVermelhoLiberado = true;
+
+            xSemaphoreGive(xBinarySemaphore);
+            xSemaphoreGive(semaforoVermelho);
             acrescentaEvento(millis() + 10000, timeOutAlarme,0);
             teclado.n_tentativas = 0;
+
+            lampada.desligar();
             break;
         
         case a03:
             //
+            lampada.desligar();
             break;
         
         case a04:
@@ -42,6 +53,7 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a06:
+            Serial.println("Parabéns, agora você está no modo de configuração!");
             // 
             break;
         
@@ -51,6 +63,7 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a08:
+          buzzerLiberado = false;
           Serial.println("Alarme 'des'disparado");
             //
             break;

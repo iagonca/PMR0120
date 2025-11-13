@@ -58,7 +58,8 @@ class Teclado{
           if(senha_decimal == senhas[i]){
             Serial.println("Senha correta! Seja bem-vindo!");
             n_tentativas = 0;
-            acrescentaEvento(millis(),senhaCorreta,3);
+            if(senhas[i] == senhaAdm) acrescentaEvento(millis(),senhaAdmVerificada,0);
+            else acrescentaEvento(millis(),senhaCorreta,3);
             break;
           }
         }
@@ -66,7 +67,9 @@ class Teclado{
         if(n_tentativas == 5) acrescentaEvento(millis(),maxTentativas,0);
       }
     }
-};
+    void incluir_comando_de_config_aguardando_em_config(){
+    }
+  };
 
 class Relay{
   private:
