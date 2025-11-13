@@ -1,8 +1,6 @@
 #ifndef MAQUINA_ESTADOS_H_INCLUDED
 #define MAQUINA_ESTADOS_H_INCLUDED
 
-#include <Arduino.h>
-
 // definicoes
 #define true 1
 #define false 0
@@ -25,9 +23,9 @@ enum ESTADOS {
   aguardandoInfoUser,
   selecionarUser,
   confirmarExclusao,
-  editarNome,
-  editarSenha,
-  editarRFID
+  editandoNome,
+  editandoSenha,
+  editandoRFID
 };
 
 enum EVENTOS {
@@ -46,7 +44,7 @@ enum EVENTOS {
   novoUsuario,
   editarUsuario,
   rfidRecebido,
-  senhaAdm,
+  senhaAdmVerificada,
   editarNome,
   editarSenha,
   editarRFID,
@@ -69,11 +67,11 @@ typedef struct matriz{
 
 // inicializacao das funcoes
 void iniciarMaquinaEstados();
-void iniciaSistema();
-void acrescentaEvento(unsigned long instante, int tipo, int dado);
+// void iniciaSistema();
+// void acrescentaEvento(unsigned long instante, int tipo, int dado);
 int obterAcao(int estado, int evento);
 int obterProximoEstado(int estado, int evento);
-void executarAcao(int codigoAcao);
+// void executarAcao(int codigoAcao);
 
 struct transicao {int estado; int evento; int prox_estado; int acao; };
 static const transicao transicoes [] = {
@@ -87,7 +85,7 @@ static const transicao transicoes [] = {
   {emAutenticacao,     senhaCorreta,       aberta,             a05},
   {emAutenticacao,     maxTentativas,      alarmeDisparado,    a02},
   {emAutenticacao,     timeOutAguardando,  trancada,           a03},
-  {emAutenticacao,     senhaAdm,           emConfiguracao,     a06},
+  {emAutenticacao,     senhaAdmVerificada, emConfiguracao,     a06},
 
   {alarmeDisparado,    timeOutAlarme,      trancada,           a08},
 
@@ -110,23 +108,23 @@ static const transicao transicoes [] = {
   {aguardandoInfoUser, editarSenha,        editarSenha,        a26},
   {aguardandoInfoUser, editarRFID,         editarRFID,         a27},
 
-  {editarNome,         teclaRecebida,      editarNome,         a28},
-  {editarNome,         retorna,            aguardandoInfoUser, a34},
-  {editarNome,         timeOutAguardando,  aguardandoInfoUser, a34},
-  {editarNome,         confirmaAlteracao,  aguardandoInfoUser, a31},
-  {editarNome,         descartaAlteracao,  aguardandoInfoUser, a37},
+  {editandoNome,         teclaRecebida,      editarNome,         a28},
+  {editandoNome,         retorna,            aguardandoInfoUser, a34},
+  {editandoNome,         timeOutAguardando,  aguardandoInfoUser, a34},
+  {editandoNome,         confirmaAlteracao,  aguardandoInfoUser, a31},
+  {editandoNome,         descartaAlteracao,  aguardandoInfoUser, a37},
 
-  {editarSenha,        teclaRecebida,      editarSenha,        a29},
-  {editarSenha,        retorna,            aguardandoInfoUser, a35},
-  {editarSenha,        timeOutAguardando,  aguardandoInfoUser, a35},
-  {editarSenha,        confirmaAlteracao,  aguardandoInfoUser, a32},
-  {editarSenha,        descartaAlteracao,  aguardandoInfoUser, a38},
+  {editandoSenha,        teclaRecebida,      editarSenha,        a29},
+  {editandoSenha,        retorna,            aguardandoInfoUser, a35},
+  {editandoSenha,        timeOutAguardando,  aguardandoInfoUser, a35},
+  {editandoSenha,        confirmaAlteracao,  aguardandoInfoUser, a32},
+  {editandoSenha,        descartaAlteracao,  aguardandoInfoUser, a38},
 
-  {editarRFID,         teclaRecebida,      editarRFID,         a30},
-  {editarRFID,         retorna,            aguardandoInfoUser, a36},
-  {editarRFID,         timeOutAguardando,  aguardandoInfoUser, a36},
-  {editarRFID,         confirmaAlteracao,  aguardandoInfoUser, a33},
-  {editarRFID,         descartaAlteracao,  aguardandoInfoUser, a39},
+  {editandoRFID,         teclaRecebida,      editarRFID,         a30},
+  {editandoRFID,         retorna,            aguardandoInfoUser, a36},
+  {editandoRFID,         timeOutAguardando,  aguardandoInfoUser, a36},
+  {editandoRFID,         confirmaAlteracao,  aguardandoInfoUser, a33},
+  {editandoRFID,         descartaAlteracao,  aguardandoInfoUser, a39},
 
   {selecionarUser,     teclaRecebida,      selecionarUser,     a11},
   {selecionarUser,     excluirUsuario,     confirmarExclusao,  a20},

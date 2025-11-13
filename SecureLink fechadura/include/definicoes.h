@@ -1,0 +1,93 @@
+#ifndef DEFINICOES_H_INCLUDED
+#define DEFINICOES_H_INCLUDED
+
+#include <Arduino_FreeRTOS.h>
+#include <queue.h>
+//#include "componentes.h"
+
+#define MAX_USUARIOS 20
+#define senhaAdm 123456
+
+class Evento
+{
+private:
+  int _dado, _tipo;
+
+public:
+  Evento() {};
+  Evento(int tipo, int dado)
+  {
+    _tipo = tipo;
+    _dado = dado;
+  }
+  int getDado(void) { return _dado; };
+  int getTipo(void) { return _tipo; };
+};
+
+// const byte KEYPAD_ROWS = 4;
+// const byte KEYPAD_COLS = 4;
+// extern byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
+// byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
+
+const byte KEYPAD_ROWS = 4;
+const byte KEYPAD_COLS = 4;
+
+extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
+extern byte rowPins[KEYPAD_ROWS];
+extern byte colPins[KEYPAD_COLS];
+
+// char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
+//   {'1', '2', '3', 'A'},
+//   {'4', '5', '6', 'B'},
+//   {'7', '8', '9', 'C'},
+//   {'*', '0', '#', 'D'}
+// };
+
+// APENAS DECLARAÇÕES com extern
+extern long senhas[MAX_USUARIOS];
+extern QueueHandle_t filaEventos;
+
+/*### SETUP COMPONENTES ####*/
+class LiquidCrystal_I2C;
+class Keypad;
+class Teclado;
+class Led;
+class Relay;
+class PIR;
+class Buzzer;
+class FimDeCurso;
+
+extern int senha[5];
+extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
+extern byte rowPins[KEYPAD_ROWS];
+extern byte colPins[KEYPAD_COLS];
+extern LiquidCrystal_I2C lcd;
+extern Keypad keypad;
+extern Teclado teclado;
+extern Led ledLigado;
+extern Led ledVermelho;
+extern Led ledVerde;
+extern Led lampada;
+extern Relay rele;
+extern PIR movimento;
+extern Buzzer buzzer;
+extern FimDeCurso portaAberta;
+
+/*### MÁQUINA DE ESTADOS ###*/
+#define MAX_EVENTO 50
+extern unsigned long EventoInstante[MAX_EVENTO];
+extern int EventoTipo[MAX_EVENTO];
+extern int EventoDado[MAX_EVENTO];
+extern int numeroEventos;
+
+void inicializaSenhas();
+
+void acrescentaEvento(unsigned long instante, int tipo, int dado);
+Evento obterEvento(void);
+
+/*### FREERTOS ###*/
+#define TAMANHO_FILA 5
+extern int estado;
+extern int codigoAcao;
+
+#endif

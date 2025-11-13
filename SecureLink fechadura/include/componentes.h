@@ -5,21 +5,23 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
+#include "componentes.h"
+#include "definicoes.h"
 #include "maquina_estados.h"
 
-extern int senhas[20];
+// extern int senhas[20];
 
 //Definições para o keypad
-const byte KEYPAD_ROWS = 4;
-const byte KEYPAD_COLS = 4;
-byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
-byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
-char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
-  {'1', '2', '3', 'A'},
-  {'4', '5', '6', 'B'},
-  {'7', '8', '9', 'C'},
-  {'*', '0', '#', 'D'}
-};
+// const byte KEYPAD_ROWS = 4;
+// const byte KEYPAD_COLS = 4;
+// byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
+// byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
+// char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
+//   {'1', '2', '3', 'A'},
+//   {'4', '5', '6', 'B'},
+//   {'7', '8', '9', 'C'},
+//   {'*', '0', '#', 'D'}
+// };
 
 class Teclado{
   private:
@@ -164,7 +166,7 @@ class FimDeCurso{
       pino = p;
       pinMode(pino, INPUT_PULLUP);
     }
-    bool update(){
+    void update(){
 
     }
    
