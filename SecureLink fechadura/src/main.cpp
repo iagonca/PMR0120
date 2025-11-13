@@ -5,7 +5,7 @@
 #include <queue.h>
 
 #define MAX_USUARIOS 20
-#define senha_do_adm 12121
+#define senhaAdm 123456
 int senhas[MAX_USUARIOS];
 
 
@@ -17,7 +17,7 @@ Teclado teclado(keypad);
 Led ledLigado(9);
 Led ledVermelho(12);
 Led ledVerde(11);
-Led Lampada(10);
+Led lampada(10);
 Relay rele(13);
 PIR movimento(7);
 Buzzer buzzer(6);
@@ -31,16 +31,17 @@ int EventoTipo[MAX_EVENTO], EventoDado[MAX_EVENTO];
 int numeroEventos = 0;
 void inicializaSenhas(){
   for(int i = 0; i<MAX_USUARIOS; i++){
-    senhas[i] = senha_do_adm;
+    senhas[i] = senhaAdm;
   }
 }
+
 void executarAcao(int codigoAcao) {
     
     switch (codigoAcao) {
         case a01: // acao a ser realizada
             
             Serial.println("PESSOA PRESENTE (freertos)");
-            Lampada.ligar();
+            lampada.ligar();
           
             break;
 
@@ -108,6 +109,156 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a16:
+            // 
+            break;
+        
+        }
+
+        case a16:
+            // 
+            break;
+        
+        }
+
+        case a17:
+            // 
+            break;
+        
+        }
+
+        case a18:
+            // 
+            break;
+        
+        }
+
+        case a19:
+            // 
+            break;
+        
+        }
+
+        case a20:
+            // 
+            break;
+        
+        }
+
+        case a21:
+            // 
+            break;
+        
+        }
+
+        case a22:
+            // 
+            break;
+        
+        }
+
+        case a23:
+            // 
+            break;
+        
+        }
+
+        case a24:
+            // 
+            break;
+        
+        }
+
+        case a25:
+            // 
+            break;
+        
+        }
+
+        case a26:
+            // 
+            break;
+        
+        }
+
+        case a27:
+            // 
+            break;
+        
+        }
+
+        case a28:
+            // 
+            break;
+        
+        }
+
+        case a29:
+            // 
+            break;
+        
+        }
+
+        case a30:
+            // 
+            break;
+        
+        }
+
+        case a31:
+            // 
+            break;
+        
+        }
+
+        case a32:
+            // 
+            break;
+        
+        }
+
+        case a33:
+            // 
+            break;
+        
+        }
+
+        case a34:
+            // 
+            break;
+        
+        }
+
+        case a35:
+            // 
+            break;
+        
+        }
+
+        case a36:
+            // 
+            break;
+        
+        }
+
+        case a37:
+            // 
+            break;
+        
+        }
+
+        case a38:
+            // 
+            break;
+        
+        }
+
+        case a39:
+            // 
+            break;
+        
+        }
+
+        case a40:
             // 
             break;
         
@@ -246,4 +397,30 @@ void taskObterEvento(void *pvParameters){
       Serial.println("Erro ao enviar item para fila");
     }
   }
+
+    Serial.print("Detector de Movimento: ");
+    Serial.print(movimento.update());
+    Serial.print(" Teclado: ");
+    Serial.print(keypad.getKey());
+    Serial.print(" Porta: ");
+    if(portaAberta.update() == 0){
+        Serial.println("Fechada");
+    }
+    else Serial.println("Aberta");
+    lampada.ligar();
+    if(millis()-tempo_inicial >= 500){
+        tempo_inicial = millis();
+        if(rele.estado == 1){
+        rele.desligar();
+        ledVerde.ligar();
+        ledVermelho.desligar();
+        buzzer.desligar();
+        }
+        else{
+        rele.ligar();
+        buzzer.tocar();
+        ledVerde.desligar();
+        ledVermelho.ligar();
+        }
+    }
 }
