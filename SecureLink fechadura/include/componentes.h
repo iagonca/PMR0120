@@ -140,7 +140,7 @@ class PIR{
       pino = p;
       pinMode(pino, INPUT);
     }
-    bool update(){
+    void update(){
       estadoAtual = digitalRead(pino);
       if(estadoAtual != ultimoEstado){
         if(estadoAtual == 0){

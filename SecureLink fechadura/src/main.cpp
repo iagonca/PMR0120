@@ -47,6 +47,7 @@ void executarAcao(int codigoAcao) {
         case a02:
             //
             Serial.println("ALARME DISPARADO (freertos)");
+            acrescentaEvento(millis() + 10000, timeOutAlarme,0);
             teclado.n_tentativas = 0;
             break;
         
@@ -74,6 +75,7 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a08:
+          Serial.println("Alarme 'des'disparado");
             //
             break;
         
@@ -237,7 +239,7 @@ void taskObterEvento(void *pvParameters){
 
   for (;;)
   {
-    Evento evento = obterEvento();
+    evento = obterEvento();
 
     if (xQueueSendToBack(filaEventos, &evento, portMAX_DELAY) != pdPASS)
     {
