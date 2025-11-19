@@ -17,11 +17,11 @@ void setup(){
   inicializaSenhas();
   filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   Serial.begin(115200);
+  lcd.init();
   xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
   xTaskCreate(taskMaqEstados,"Maquina de Estados",128,NULL,2,NULL);
   xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);
   vTaskStartScheduler();
-
 }
 
 Evento obterEvento(void)
@@ -91,7 +91,6 @@ void taskMaqEstados(void *pvParameters){
     movimento.update();
     teclado.update();
   }
-
 }
 void taskBlink(void *pvParameters){
   for (;;) // A Task shall never return or exit.

@@ -61,6 +61,7 @@ extern int senha[5];
 extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
 extern byte rowPins[KEYPAD_ROWS];
 extern byte colPins[KEYPAD_COLS];
+
 extern LiquidCrystal_I2C lcd;
 extern Keypad keypad;
 extern Teclado teclado;
