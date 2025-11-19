@@ -9,63 +9,243 @@
 #include "definicoes.h"
 #include "maquina_estados.h"
 
-// extern int senhas[20];
+class Lcd {
+  private:
+    LiquidCrystal_I2C display;
+  public:
+    Lcd(LiquidCrystal_I2C disp) : display(disp){}
 
-//Definições para o keypad
-// const byte KEYPAD_ROWS = 4;
-// const byte KEYPAD_COLS = 4;
-// byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
-// byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
-// char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
-//   {'1', '2', '3', 'A'},
-//   {'4', '5', '6', 'B'},
-//   {'7', '8', '9', 'C'},
-//   {'*', '0', '#', 'D'}
-// };
+    void clear() {
+      display.clear();
+    }
+
+    void setCursor(int row, int col) {
+      display.setCursor(col, row);
+    }
+
+    void print(const char* texto) {
+      display.print(texto)
+    }
+
+};
 
 class Teclado{
   private:
     Keypad keypad;
   public:
     char tecla;
-    int counter_digitos_senha = 0;
+    int counterNome = 0;
+    char bufferNome[17];
+    int counterSenha = 0;
+    int bufferSenha[5];
     int n_tentativas = 0;
-    char senhac[6];
-    Teclado(Keypad tec) : keypad(tec){
 
-    }
+    Teclado(Keypad tec) : keypad(tec){}
+
     void update(){
       tecla = keypad.getKey();
       if(tecla != NO_KEY){
         acrescentaEvento(millis(),teclaRecebida,0);
       }
     }
+
     void incluir_na_senha(int *senha){
-      int n = tecla-'0';
-      if(tecla == '0') n = 0;
-      *(senha+counter_digitos_senha) = n;
-      senhac[counter_digitos_senha] = tecla;
-      counter_digitos_senha++;
+      if (tecla >= '0' && tecla <= '9') {
+        int n = tecla-'0';
+        senha[counterSenha] = n;
+        counterSenha++;
       
-      if(counter_digitos_senha == 5){
-        /*TRANSFORMAR EM UM INT APENAS*/
-        int senha_decimal = (10000*(*senha)) + (1000*(*(senha+1))) + (100*(*(senha+2))) + (10*(*(senha+3))) + (1*(*(senha+4)));
-        Serial.print("Senha digitada: ");
-        Serial.println(senha_decimal);
-        counter_digitos_senha = 0;
-        /*CHECAR SENHA*/
-        for(int i = 0; i< 20; i++){
-          if(senha_decimal == senhas[i]){
-            Serial.println("Senha correta! Seja bem-vindo!");
-            n_tentativas = 0;
-            acrescentaEvento(millis(),senhaCorreta,3);
-            break;
+        if(counterSenha == 5){
+          /*TRANSFORMAR EM UM INT APENAS*/
+          int senha_decimal = (10000*(*senha)) + (1000*(*(senha+1))) + (100*(*(senha+2))) + (10*(*(senha+3))) + (1*(*(senha+4)));
+          Serial.print("Senha digitada: ");
+          Serial.println(senha_decimal);
+          counterSenha = 0;
+          /*CHECAR SENHA*/
+          for(int i = 0; i < 20; i++){
+            if(senha_decimal == senhas[i]){
+              Serial.println("Senha correta! Seja bem-vindo!");
+              n_tentativas = 0;
+              acrescentaEvento(millis(),senhaCorreta,3);
+              break;
+            }
           }
+          n_tentativas++;
+          if(n_tentativas == 5) acrescentaEvento(millis(),maxTentativas,0);
         }
-        n_tentativas++;
-        if(n_tentativas == 5) acrescentaEvento(millis(),maxTentativas,0);
+      } 
+    }
+
+    /* BUFFERS DE VERIFICAR OS INPUTS */
+    void capturaNome(char *nome) {
+      // Apenas dígitos e letras (A-D do teclado 4x4)
+        if ((tecla >= '0' && tecla <= '9') || 
+            (tecla >= 'A' && tecla <= 'C')) {
+            
+            if (counterNome < 16) {
+              bufferNome[counterNome] = tecla;
+              counterNome++;
+              bufferNome[counterNome] = '\0';
+              
+              // Mostrar no LCD
+            }
+        }
+        
+        // Backspace (tecla D)
+        else if (tecla == 'D' && counterNome > 0) {
+          counterNome--;
+          bufferNome[counterNome] = '\0';
+          
+          // Atualizar LCD
+        }
+        
+        // Confirmar (tecla #)
+        else if (tecla == '#') {
+            if (counterNome == 0) {
+              // print erro nome nulo
+            }
+
+            else {
+              // COPIAR o conteúdo para o ponteiro de destino
+              strcpy(nome, bufferNome);
+              
+              // Mostrar confirmação
+              
+              counterNome = 0;
+              bufferNome[0] = '\0';
+              
+              acrescentaEvento(millis(), confirmaAlteracao, 0);
+            }
+        }
+        
+        // Cancelar (tecla *)
+        else if (tecla == '*') {
+          // Resetar buffer
+          counterNome = 0;
+          bufferNome[0] = '\0';
+          
+          acrescentaEvento(millis(), retorna, 0);
+        }
+    }
+
+    void capturaSenha(int *senha) {
+      if (tecla >= '0' && tecla <= '9') {
+        if (counterSenha < 5) {
+          int n = tecla-'0';
+          bufferSenha[counterSenha] = n;
+          counterSenha++;
+        }
+
+      } 
+
+      // backspace
+      else if (tecla == 'D' && counterSenha > 0) {
+        counterSenha--;
+        bufferSenha[counterSenha] = 0;
+        
+        // Atualizar LCD
+
+      }
+
+      // confirmar
+      else if (tecla == '#') {
+        if (counterSenha != 5) {
+          // print a senha deve conter 5 caracteres
+        }
+
+        else {
+          for (int i = 0; i < 5; i++) {
+            senha[i] = bufferSenha[i];
+          }
+
+          // Mostrar confirmação
+          
+          bufferSenha[0] = 0;
+          
+          acrescentaEvento(millis(), confirmaAlteracao, 0);
+        }
+      }
+        
+        // cancelar 
+        else if (tecla == '*') {
+            counterSenha = 0;
+            
+            acrescentaEvento(millis(), retorna, 0);
+        }
+    }    
+    
+    void confirmaExclusao() {
+      switch (tecla) {
+        case '#':
+          acrescentaEvento(millis(), salvandoDados, 0);
+          break;
+        case '*':
+          acrescentaEvento(millis(), retorna, 0);
+          break;
+        default:
+          break;
       }
     }
+    
+    /* FUNCOES DE SELECIONAR UM NOVO MENU */
+    void selecaoEmConfiguracao() {
+      switch (tecla) {
+        case 'A':
+          acrescentaEvento(millis(), editarUsuario, 0);
+          break;
+        case 'B':
+          acrescentaEvento(millis(), novoUsuario, 0);
+          break;
+        default:
+          break;
+      }
+    }
+
+    void selecaoSelecionarUser() {
+      switch (tecla) {
+        case 'A':
+          acrescentaEvento(millis(), excluirUsuario, 0);
+          break;
+        case 'B':
+          acrescentaEvento(millis(), editarUsuario, 0);
+          break;
+        default:
+          break;
+      }
+    }
+
+    void selecaoAguardandoInfoUser() {
+      switch (tecla) {
+        case 'A':
+          acrescentaEvento(millis(), editandoNome, 0);
+          break;
+        case 'B':
+          acrescentaEvento(millis(), editarSenha, 0);
+          break;
+        case 'C':
+          acrescentaEvento(millis(), editarRFID, 0);
+          break;
+        default:
+          break;
+      }
+    }
+
+    void selecaoNovoUsuario() {
+      switch (tecla) {
+        case 'A':
+          acrescentaEvento(millis(), novoNome, 0);
+          break;
+        case 'B':
+          acrescentaEvento(millis(), novaSenha, 0);
+          break;
+        case 'C':
+          acrescentaEvento(millis(), novoRFID, 0);
+          break;
+        default:
+          break;
+      }
+    }
+
 };
 
 class Relay{
@@ -171,7 +351,6 @@ class FimDeCurso{
     }
    
 };
-
 
 
 #endif
