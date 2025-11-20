@@ -32,6 +32,7 @@ void setup(){
   xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);
   xTaskCreate(taskBuzzer,"buzzer tocando alternadamente",128,NULL,1,NULL);
   xTaskCreate(taskBlinkVermelho,"blinkVermelho",128,NULL,1,NULL);
+  xTaskCreate(taskBlinkVerde,"blinkVerde",128,NULL,1,NULL);
   vTaskStartScheduler();
 
 }
@@ -62,7 +63,7 @@ void acrescentaEvento(unsigned long instante, int tipo, int dado)
     return;
   int i, j;
   for (i = 0; i < numeroEventos; i++)
-    if (EventoInstante[i] < instante)
+    if (EventoInstante[i] > instante)
     {
       for (j = numeroEventos; j > i - 1; j--)
       {
@@ -85,7 +86,11 @@ void taskMaqEstados(void *pvParameters){
 
   for (;;)
   {
+   
     // evento = obterEvento();
+    movimento.update();
+    teclado.update();
+
     if (xQueueReceive(filaEventos, &evento, portMAX_DELAY) != pdPASS)
     {
       Serial.println("Erro ao receber item da fila");
@@ -99,9 +104,6 @@ void taskMaqEstados(void *pvParameters){
       estado = obterProximoEstado(estado, evento.getTipo());
       executarAcao(codigoAcao);
     }
-
-    movimento.update();
-    teclado.update();
   }
 
 }
@@ -120,7 +122,7 @@ void taskBlinkVerde(void *pvParameters){
   {
     xSemaphoreTake(semaforoVerde, portMAX_DELAY);
 
-    while (buzzerLiberado)
+    while (ledVerdeLiberado)
     {
       ledVerde.ligar();
       vTaskDelay(xDelayInTicks);
@@ -166,7 +168,6 @@ void taskObterEvento(void *pvParameters){
   for (;;)
   {
     evento = obterEvento();
-
     if (xQueueSendToBack(filaEventos, &evento, portMAX_DELAY) != pdPASS)
     {
       Serial.println("Erro ao enviar item para fila");

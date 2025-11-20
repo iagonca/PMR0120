@@ -20,7 +20,9 @@ void executarAcao(int codigoAcao) {
             
             Serial.println("PESSOA PRESENTE (freertos)");
             lampada.ligar();
-          
+            ledVerdeLiberado = true;
+            xSemaphoreGive(semaforoVerde);
+            acrescentaEvento(millis()+10000,timeOutAguardando,0);
             break;
 
         case a02:
@@ -28,6 +30,7 @@ void executarAcao(int codigoAcao) {
             Serial.println("ALARME DISPARADO (freertos)");
             buzzerLiberado = true;
             ledVermelhoLiberado = true;
+            ledVerdeLiberado = false;
 
             xSemaphoreGive(xBinarySemaphore);
             xSemaphoreGive(semaforoVermelho);
@@ -40,6 +43,9 @@ void executarAcao(int codigoAcao) {
         case a03:
             //
             lampada.desligar();
+            Serial.println("PESSOA desPRESENTE (freertos)");
+            ledVerdeLiberado = false;
+            teclado.counter_digitos_senha = 0;
             break;
         
         case a04:
@@ -49,6 +55,9 @@ void executarAcao(int codigoAcao) {
         
         case a05:
             Serial.println("Senha correta. Seja bem-vindo! (freertos)");
+            ledVerdeLiberado = false;
+            ledVerde.ligar();
+            lampada.desligar();
             // 
             break;
         
