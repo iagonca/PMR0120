@@ -8,8 +8,6 @@
 #define numEstados 12
 #define numEventos 22
 // #define numAcoes 0 // preencher
-#define nenhumEvento -1
-#define nenhumaAcao -1
 
 
 
@@ -32,6 +30,7 @@ enum ESTADOS {
 };
 
 enum EVENTOS {
+  nenhumEvento = -1,
   pessoaPresente,
   teclaRecebida,
   rfidIncorreto,
@@ -60,6 +59,7 @@ enum EVENTOS {
 };
 
 enum ACOES {
+  nenhumaAcao = -1,
   a01, a02, a03, a04, a05, a06, a07, a08, a09, a10,
   a11, a12, a13, a14, a15, a16, a17, a18, a19, a20,
   a21, a22, a23, a24, a25, a26, a27, a28, a29, a30,

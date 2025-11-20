@@ -18,6 +18,7 @@ void setup(){
   filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   Serial.begin(115200);
   lcd.init();
+  lcd.mostrarTelaInicial();
   xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
   xTaskCreate(taskMaqEstados,"Maquina de Estados",128,NULL,2,NULL);
   xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);

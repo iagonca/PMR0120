@@ -7,21 +7,21 @@
 
 #define MAX_USUARIOS 20
 #define senhaAdm 123456
+#define TIMEOUT_AUTENTICACAO 30000
+#define TIMEOUT_ALARME 60000
+#define TIMEOUT_CONFIG 120000
 
-class Evento
-{
+class Evento {
 private:
   int _dado, _tipo;
 
 public:
-  Evento() {};
-  Evento(int tipo, int dado)
-  {
-    _tipo = tipo;
-    _dado = dado;
-  }
+  Evento() : _tipo(nenhumEvento), _dado(0) {}
+  Evento(int tipo, int dado) :  _tipo(tipo), _dado(dado) {}
   int getDado(void) { return _dado; };
   int getTipo(void) { return _tipo; };
+  void setTipo(int tipo) { _tipo = tipo; }
+  void setDado(int dado) { _dado = dado; }
 };
 
 // const byte KEYPAD_ROWS = 4;
@@ -48,7 +48,7 @@ extern long senhas[MAX_USUARIOS];
 extern QueueHandle_t filaEventos;
 
 /*### SETUP COMPONENTES ####*/
-class LiquidCrystal_I2C;
+class Display;
 class Keypad;
 class Teclado;
 class Led;
@@ -62,7 +62,7 @@ extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
 extern byte rowPins[KEYPAD_ROWS];
 extern byte colPins[KEYPAD_COLS];
 
-extern LiquidCrystal_I2C lcd;
+extern Display lcd;
 extern Keypad keypad;
 extern Teclado teclado;
 extern Led ledLigado;
