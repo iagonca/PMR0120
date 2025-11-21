@@ -20,12 +20,9 @@ void executarAcao(int codigoAcao) {
             // código exemplo -- modificar depois
             lcd.mostrarTelaInicial();
             lampada.ligar();
-<<<<<<< HEAD
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
             acrescentaEvento(millis()+10000,timeOutAguardando,0);
-=======
->>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
             break;
 
         case a02:

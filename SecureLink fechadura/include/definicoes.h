@@ -7,26 +7,22 @@
 //#include "componentes.h"
 
 #define MAX_USUARIOS 20
-<<<<<<< HEAD
-#define senhaAdm 12345
-=======
 #define senhaAdm 123456
 #define TIMEOUT_AUTENTICACAO 30000
 #define TIMEOUT_ALARME 60000
 #define TIMEOUT_CONFIG 120000
->>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
 
 class Evento {
-private:
-  int _dado, _tipo;
+  private:
+    int _dado, _tipo;
 
-public:
-  Evento() : _tipo(nenhumEvento), _dado(0) {}
-  Evento(int tipo, int dado) :  _tipo(tipo), _dado(dado) {}
-  int getDado(void) { return _dado; };
-  int getTipo(void) { return _tipo; };
-  void setTipo(int tipo) { _tipo = tipo; }
-  void setDado(int dado) { _dado = dado; }
+  public:
+    Evento() : _tipo(nenhumEvento), _dado(0) {}
+    Evento(int tipo, int dado) :  _tipo(tipo), _dado(dado) {}
+    int getDado(void) { return _dado; };
+    int getTipo(void) { return _tipo; };
+    void setTipo(int tipo) { _tipo = tipo; }
+    void setDado(int dado) { _dado = dado; }
 };
 
 // const byte KEYPAD_ROWS = 4;
