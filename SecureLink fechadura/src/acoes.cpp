@@ -88,9 +88,11 @@ void executarAcao(int codigoAcao) {
             //
             break;
         
-        case a08: // para o alarme
+        case a08: // para o alarme e volta pro estado "trancada"
           buzzerLiberado = false;
           Serial.println("Alarme 'des'disparado");
+          lampada.desligar();
+          ledVerdeLiberado = false;
             //
             break;
         
@@ -115,112 +117,121 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a14: // printa na tela "Alterações"
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!")
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
         
         case a15: // printa na tela "rfid recebido"
-            Serial.println("RFID recebido!")
+            Serial.println("RFID recebido!");
             // 
             break;
         
-        case a16: 
-            // 
+        case a16: // salvando dados be voltando às configurações
+            Serial.println("Configurações.");
+            //
             break;
 
         case a17: // printa na tela "config"
-            // 
+            Serial.println("Configurações.");
             break;
 
-        case a18: tranca porta; apaga led verde
-            // 
+        case a18: apaga led verde
+            lampada.desligar();
+            Serial.println("PESSOA desPRESENTE (freertos)");
+            ledVerdeLiberado = false;
+            teclado.counter_digitos_senha = 0;
             break;
 
         case a19: // printa na tela "seleção de usuario"
-            // 
+            Serial.println("Seleção de usuário.");
             break;
+
         case a20: // printa na tela "confirma exclusão?"
-            // 
+            Serial.println("Confirmar exclusão?");
             break;
 
         case a21: // print na tela "config salva"
-            // 
+            Serial.println("Configuração salva.");
             break;
     
         case a22: // printa na tela "seleção de usuario"
-            // 
+            Serial.println("Seleção de usuário.");
             break;
 
-        case a23: // printa na tela "aguardando onfo do usuario"
-            // 
+        case a23: // printa na tela "aguardando info do usuario"
+            Serial.println("Aguardando informação do usuário.");
             break;
         
         case a24: // printa na tela "config"
-            // 
+            Serial.println("Configurações.");
             break;
 
         case a25: // printa na tela "digite o nome"
+            Serial.println("Digite o nome: ");
+            break;
+
+        case a26: // printa na tela "digite a senha"
+            Serial.println("Digite a senha: ");
+            break;
+
+        case a27: // printa na tela "apresente RFID"
+            Serial.println("Apresente RFID: ");
+            break;
+
+        case a28: // computa a tecla e printa ela
             // 
             break;
 
-        case a26:
+        case a29: // computa a tecla e printa ela
             // 
             break;
 
-        case a27:
+        case a30: // computa o novo RFID
             // 
             break;
 
-        case a28:
-            // 
+        case a31: // salva o nome e printa na tela "aguardando info do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a29:
-            // 
+        case a32: // salva a senha e printa na tela "aguardando info do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a30:
-            // 
+        case a33: // salva o RFID e printa na tela "aguardando info do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a31:
-            // 
+        case a34: // printa na tela "aguardando indo do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a32:
-            // 
+        case a35: // printa na tela "aguardando indo do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a33:
-            // 
+        case a36: // printa na tela "aguardando indo do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a34:
-            // 
+        case a37: // printa na tela "aguardando indo do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a35:
-            // 
+        case a38: // printa na tela "aguardando indo do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a36:
-            // 
+        case a39: // printa na tela "aguardando indo do usuário"
+            Serial.println("Aguardando info do usuário.");
             break;
 
-        case a37:
-            // 
-            break;
-
-        case a38:
-            // 
-            break;
-
-        case a39:
-            // 
-            break;
-
-        case a40:
-            // 
+        case a40: // desliga lampada; desliga led; reseta a tela
+            //
+            lampada.desligar();
+            Serial.println("PESSOA desPRESENTE (freertos)");
+            ledVerdeLiberado = false;
+            teclado.counter_digitos_senha = 0;
             break;
 
         case a41:
