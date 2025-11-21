@@ -25,7 +25,8 @@ char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
 byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
 byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcdI2C(0x27, 16, 2);
+Display lcd(&lcdI2C);
 Keypad keypad(makeKeymap(keys), rowPins, colPins, KEYPAD_ROWS, KEYPAD_COLS);
 Teclado teclado(keypad);
 Led ledLigado(9);

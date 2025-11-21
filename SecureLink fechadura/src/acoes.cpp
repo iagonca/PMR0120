@@ -17,12 +17,20 @@ void executarAcao(int codigoAcao) {
     
     switch (codigoAcao) {
         case a01: // acao a ser realizada
-            
-            Serial.println("PESSOA PRESENTE (freertos)");
+            // código exemplo -- modificar depois
+            lcd.clear();
+            lcd.backlight();
+            lcd.setCursor(0,0);
+            lcd.print("SecureLink");
+            lcd.setCursor(0,1);
+            lcd.print("Bem-Vindo");
             lampada.ligar();
+<<<<<<< HEAD
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
             acrescentaEvento(millis()+10000,timeOutAguardando,0);
+=======
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
             break;
 
         case a02:

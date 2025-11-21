@@ -27,6 +27,8 @@ void setup(){
   semaforoVerde = xSemaphoreCreateBinary();
   semaforoVermelho = xSemaphoreCreateBinary();
   Serial.begin(115200);
+  lcd.init();
+  lcd.mostrarTelaInicial();
   xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
   xTaskCreate(taskMaqEstados,"Maquina de Estados",128,NULL,2,NULL);
   xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);
@@ -34,7 +36,6 @@ void setup(){
   xTaskCreate(taskBlinkVermelho,"blinkVermelho",128,NULL,1,NULL);
   xTaskCreate(taskBlinkVerde,"blinkVerde",128,NULL,1,NULL);
   vTaskStartScheduler();
-
 }
 
 Evento obterEvento(void)
@@ -105,7 +106,6 @@ void taskMaqEstados(void *pvParameters){
       executarAcao(codigoAcao);
     }
   }
-
 }
 void taskBlink(void *pvParameters){
   for (;;) // A Task shall never return or exit.

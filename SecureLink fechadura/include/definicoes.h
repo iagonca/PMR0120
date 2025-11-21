@@ -7,22 +7,26 @@
 //#include "componentes.h"
 
 #define MAX_USUARIOS 20
+<<<<<<< HEAD
 #define senhaAdm 12345
+=======
+#define senhaAdm 123456
+#define TIMEOUT_AUTENTICACAO 30000
+#define TIMEOUT_ALARME 60000
+#define TIMEOUT_CONFIG 120000
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
 
-class Evento
-{
+class Evento {
 private:
   int _dado, _tipo;
 
 public:
-  Evento() {};
-  Evento(int tipo, int dado)
-  {
-    _tipo = tipo;
-    _dado = dado;
-  }
+  Evento() : _tipo(nenhumEvento), _dado(0) {}
+  Evento(int tipo, int dado) :  _tipo(tipo), _dado(dado) {}
   int getDado(void) { return _dado; };
   int getTipo(void) { return _tipo; };
+  void setTipo(int tipo) { _tipo = tipo; }
+  void setDado(int dado) { _dado = dado; }
 };
 
 // const byte KEYPAD_ROWS = 4;
@@ -53,7 +57,7 @@ extern SemaphoreHandle_t semaforoVerde;
 
 
 /*### SETUP COMPONENTES ####*/
-class LiquidCrystal_I2C;
+class Display;
 class Keypad;
 class Teclado;
 class Led;
@@ -66,7 +70,8 @@ extern int senha[5];
 extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
 extern byte rowPins[KEYPAD_ROWS];
 extern byte colPins[KEYPAD_COLS];
-extern LiquidCrystal_I2C lcd;
+
+extern Display lcd;
 extern Keypad keypad;
 extern Teclado teclado;
 extern Led ledLigado;

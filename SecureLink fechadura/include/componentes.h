@@ -6,33 +6,25 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include "componentes.h"
-#include "definicoes.h"
+//#include "definicoes.h"
 #include "maquina_estados.h"
 
-// extern int senhas[20];
-
-//Definições para o keypad
-// const byte KEYPAD_ROWS = 4;
-// const byte KEYPAD_COLS = 4;
-// byte rowPins[KEYPAD_ROWS] = {A15, A14, A13, A12};
-// byte colPins[KEYPAD_COLS] = {A11, A10, A9, A8};
-// char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
-//   {'1', '2', '3', 'A'},
-//   {'4', '5', '6', 'B'},
-//   {'7', '8', '9', 'C'},
-//   {'*', '0', '#', 'D'}
-// };
+void acrescentaEvento(unsigned long instante, int tipo, int dado);
+extern long senhas[];
+extern const int MAX_USUARIOS;
 
 class Teclado{
   private:
     Keypad keypad;
   public:
     char tecla;
-    int counter_digitos_senha = 0;
+    int counterNome = 0;
+    char bufferNome[17];
+    int counterSenha = 0;
+    int bufferSenha[5];
     int n_tentativas = 0;
-    char senhac[6];
-    Teclado(Keypad tec) : keypad(tec){
 
+<<<<<<< HEAD
     }
     void update(){
       tecla = keypad.getKey();
@@ -70,6 +62,29 @@ class Teclado{
     void incluir_comando_de_config_aguardando_em_config(){
     }
   };
+=======
+    Teclado(Keypad tec) : keypad(tec){}
+
+    void update();
+    void incluir_na_senha(int *senha);
+    bool verificarSenhaAdmin(int* senha);
+    void capturaNome(char* nome);
+    void capturaSenha(int* senha);
+    void retornar();
+    void confirmaExclusao();
+    void selecaoEmConfiguracao();
+    void selecaoSelecionarUser();
+    void selecaoAguardandoInfoUser();
+    void selecaoNovoUsuario();
+};
+
+class RFID {
+  private:
+
+  public:
+
+};
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
 
 class Relay{
   private:
@@ -145,19 +160,9 @@ class PIR{
       pino = p;
       pinMode(pino, INPUT);
     }
-    void update(){
-      estadoAtual = digitalRead(pino);
-      if(estadoAtual != ultimoEstado){
-        if(estadoAtual == 0){
-        }
-        else{
-          Serial.println("Pessoa presente (.h)");
-          acrescentaEvento(millis(),pessoaPresente,0);
-        }
-        ultimoEstado = estadoAtual;
-      }
-    }
+    void update();
 };
+
 /*COLOCAR DEBOUNCE TIME NO FIM DE CURSO*/
 class FimDeCurso{
   private:
@@ -175,6 +180,177 @@ class FimDeCurso{
    
 };
 
-
+class Display {
+  private:
+    LiquidCrystal_I2C* lcd;
+    
+  public:
+    // Construtor
+    Display(LiquidCrystal_I2C* disp) : lcd(disp) {}
+    
+    // Inicialização
+    void init() {
+      lcd->init();
+      lcd->backlight();
+      lcd->clear();
+    }
+    
+    // Métodos básicos (wrapper para LiquidCrystal_I2C)
+    void clear() { lcd->clear(); }
+    void setCursor(int row, int col) { lcd->setCursor(col, row); }
+    void print(const char* texto) { lcd->print(texto); }
+    void print(char c) { lcd->print(c); }
+    void print(int num) { lcd->print(num); }
+    void print(long num) { lcd->print(num); }
+    void backlight() { lcd->backlight(); }  
+    void noBacklight() { lcd->noBacklight(); }
+    
+    // Métodos específicos do projeto
+    void mostrarTelaInicial() {
+      clear();
+      setCursor(0, 0);
+      print("SecureLink");
+      setCursor(1, 0);
+      print("Trancada");
+    }
+    
+    void mostrarAguardandoRFID() {
+      clear();
+      setCursor(0, 0);
+      print("Aproxime o");
+      setCursor(1, 0);
+      print("cartao...");
+    }
+    
+    void mostrarDigiteSenha() {
+      clear();
+      setCursor(0, 0);
+      print("Digite a senha:");
+      setCursor(1, 0);
+    }
+    
+    void mostrarDigiteNome() {
+      clear();
+      setCursor(0, 0);
+      print("Digite o nome:");
+      setCursor(1, 0);
+    }
+    
+    void mostrarMenuConfig() {
+      clear();
+      setCursor(0, 0);
+      print("A-Edit B-Novo");
+    }
+    
+    void mostrarMenuUsuario(const char* nome) {
+      clear();
+      setCursor(0, 0);
+      print(nome);
+      setCursor(1, 0);
+      print("A-Exc B-Edit");
+    }
+    
+    void mostrarMenuEditarInfo() {
+      clear();
+      setCursor(0, 0);
+      print("A-Nome B-Senha");
+      setCursor(1, 0);
+      print("C-RFID");
+    }
+    
+    void mostrarMenuNovoUsuario() {
+      clear();
+      setCursor(0, 0);
+      print("Novo Usuario:");
+      setCursor(1, 0);
+      print("A-Nome B-Senha");
+    }
+    
+    void mostrarAlarme() {
+      clear();
+      setCursor(0, 0);
+      print("*** ALARME ***");
+      setCursor(1, 0);
+      print("Tentativas max!");
+    }
+    
+    void mostrarPortaAberta() {
+      clear();
+      setCursor(0, 0);
+      print("Porta Aberta");
+    }
+    
+    void mostrarPortaFechada() {
+      clear();
+      setCursor(0, 0);
+      print("Porta Fechada");
+    }
+    
+    void mostrarSalvando() {
+      clear();
+      setCursor(0, 0);
+      print("Salvando...");
+    }
+    
+    void mostrarSucesso(const char* msg) {
+      clear();
+      setCursor(0, 0);
+      print(msg);
+      setCursor(1, 0);
+      print("Sucesso!");
+    }
+    
+    void mostrarErro(const char* msg) {
+      clear();
+      setCursor(0, 0);
+      print("Erro:");
+      setCursor(1, 0);
+      print(msg);
+    }
+    
+    void mostrarCancelado() {
+      clear();
+      setCursor(0, 0);
+      print("Cancelado");
+    }
+    
+    void mostrarConfirmaExclusao(const char* nome) {
+      clear();
+      setCursor(0, 0);
+      print("Excluir:");
+      setCursor(1, 0);
+      print(nome);
+      // Próxima linha pode mostrar "# Sim * Nao"
+    }
+    
+    void mostrarSenhaCorreta() {
+      clear();
+      setCursor(0, 0);
+      print("Bem-vindo!");
+    }
+    
+    void mostrarSenhaIncorreta(int tentativas) {
+      clear();
+      setCursor(0, 0);
+      print("Senha incorreta");
+      setCursor(1, 0);
+      print("Tent: ");
+      print(tentativas);
+      print("/5");
+    }
+    
+    void mostrarAguardandoAdmin() {
+      clear();
+      setCursor(0, 0);
+      print("Senha Admin:");
+      setCursor(1, 0);
+    }
+    
+    void mostrarPessoaPresente() {
+      clear();
+      setCursor(0, 0);
+      print("Pessoa presente");
+    }
+};
 
 #endif
