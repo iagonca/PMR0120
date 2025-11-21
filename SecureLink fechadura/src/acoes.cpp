@@ -16,16 +16,33 @@ extern bool ledVermelhoLiberado;
 void executarAcao(int codigoAcao) {
     
     switch (codigoAcao) {
-        case a01: // acao a ser realizada
+        case a01: // acao a ser realizada     // liga tela inicial; liga lampada; pisca led verde
             // código exemplo -- modificar depois
-            lcd.mostrarTelaInicial();
+            lcd.clear();
+            lcd.backlight();
+            lcd.setCursor(0,0);
+            lcd.print("SecureLink");
+            lcd.setCursor(0,1);
+            lcd.print("Bem-Vindo");
             lampada.ligar();
+<<<<<<< HEAD
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
             acrescentaEvento(millis()+10000,timeOutAguardando,0);
+=======
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
             break;
+ 
+  //    case a01: // acao a ser realizada
+  //          // código exemplo -- modificar depois
+  //          lcd.mostrarTelaInicial();
+  //          lampada.ligar();
+  //          ledVerdeLiberado = true;
+  //          xSemaphoreGive(semaforoVerde);
+  //          acrescentaEvento(millis()+10000,timeOutAguardando,0);
+  //          break;
 
-        case a02:
+        case a02: // dispara alarme; liga led vermelho; desliga led verde
             //
             Serial.println("ALARME DISPARADO (freertos)");
             buzzerLiberado = true;
@@ -40,7 +57,7 @@ void executarAcao(int codigoAcao) {
             lampada.desligar();
             break;
         
-        case a03:
+        case a03: // desliga lampada; desliga led; reseta a tela
             //
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
@@ -48,12 +65,12 @@ void executarAcao(int codigoAcao) {
             teclado.counter_digitos_senha = 0;
             break;
         
-        case a04:
+        case a04: // computa tecla 
             teclado.incluir_na_senha(&senha[0]);
             // 
             break;
-        
-        case a05:
+         
+        case a05: // printa na tela; liga led verde; desliga lampada; abre a fechadura
             Serial.println("Senha correta. Seja bem-vindo! (freertos)");
             ledVerdeLiberado = false;
             ledVerde.ligar();
@@ -61,99 +78,88 @@ void executarAcao(int codigoAcao) {
             // 
             break;
         
-        case a06:
+        case a06: // printa "config"
             Serial.println("Parabéns, agora você está no modo de configuração!");
             // 
             break;
         
-        case a07:
+        case a07: // tranca a porta; apaga led verde
             Serial.println("LED ON");
             //
             break;
         
-        case a08:
+        case a08: // para o alarme
           buzzerLiberado = false;
           Serial.println("Alarme 'des'disparado");
             //
             break;
         
-        case a09:
+        case a09: // computa tecla
             //
             break;
         
-        case a10:
+        case a10: // computa tecla
             // 
             break;
         
-        case a11:
+        case a11: // computa tecla
             // 
             break;
         
-        case a12:
+        case a12: // computa tecla
             // 
             break;
         
-        case a13:
+        case a13: // computa tecla
             // 
             break;
         
-        case a14:
+        case a14: // printa na tela "Alterações"
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!")
             // 
             break;
         
-        case a15:
+        case a15: // printa na tela "rfid recebido"
+            Serial.println("RFID recebido!")
             // 
             break;
         
-        case a16:
+        case a16: 
             // 
             break;
 
-        // case a16:
-        //     // 
-        //     break;
-        
-        // }
-
-        case a17:
+        case a17: // printa na tela "config"
             // 
             break;
 
-        case a18:
+        case a18: tranca porta; apaga led verde
             // 
             break;
-        
 
-        case a19:
+        case a19: // printa na tela "seleção de usuario"
             // 
             break;
-        
-
-        case a20:
+        case a20: // printa na tela "confirma exclusão?"
             // 
             break;
-        
 
-        case a21:
+        case a21: // print na tela "config salva"
             // 
             break;
-        
+    
+        case a22: // printa na tela "seleção de usuario"
+            // 
+            break;
 
-        case a22:
+        case a23: // printa na tela "aguardando onfo do usuario"
             // 
             break;
         
-
-        case a23:
-            // 
-            break;
-        
-
-        case a24:
+        case a24: // printa na tela "config"
             // 
             break;
 
-        case a25:
+        case a25: // printa na tela "digite o nome"
             // 
             break;
 
@@ -214,6 +220,70 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a40:
+            // 
+            break;
+
+        case a41:
+            // 
+            break;
+
+        case a42:
+            // 
+            break;
+
+        case a43:
+            // 
+            break;
+
+        case a44:
+            // 
+            break;
+
+        case a45:
+            // 
+            break;
+
+        case a46:
+            // 
+            break;
+
+        case a47:
+            // 
+            break;
+
+        case a48:
+            // 
+            break;
+
+        case a49:
+            // 
+            break;
+
+        case a50:
+            // 
+            break;
+
+        case a51:
+            // 
+            break;
+        
+        case a52:
+            // 
+            break;
+
+        case a53:
+            // 
+            break;
+
+        case a54:
+            // 
+            break;
+
+        case a55:
+            // 
+            break;
+
+        case a56:
             // 
             break;
     }
