@@ -3,13 +3,18 @@
 
 #include <Arduino_FreeRTOS.h>
 #include <queue.h>
+#include <semphr.h>
 //#include "componentes.h"
 
 #define MAX_USUARIOS 20
+<<<<<<< HEAD
+#define senhaAdm 12345
+=======
 #define senhaAdm 123456
 #define TIMEOUT_AUTENTICACAO 30000
 #define TIMEOUT_ALARME 60000
 #define TIMEOUT_CONFIG 120000
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
 
 class Evento {
 private:
@@ -46,6 +51,10 @@ extern byte colPins[KEYPAD_COLS];
 // APENAS DECLARAÇÕES com extern
 extern long senhas[MAX_USUARIOS];
 extern QueueHandle_t filaEventos;
+extern SemaphoreHandle_t xBinarySemaphore;
+extern SemaphoreHandle_t semaforoVermelho;
+extern SemaphoreHandle_t semaforoVerde;
+
 
 /*### SETUP COMPONENTES ####*/
 class Display;

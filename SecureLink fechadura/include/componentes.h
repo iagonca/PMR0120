@@ -24,6 +24,45 @@ class Teclado{
     int bufferSenha[5];
     int n_tentativas = 0;
 
+<<<<<<< HEAD
+    }
+    void update(){
+      tecla = keypad.getKey();
+      if(tecla != NO_KEY){
+        acrescentaEvento(millis(),teclaRecebida,0);
+      }
+    }
+    void incluir_na_senha(int *senha){
+      int n = tecla-'0';
+      if(tecla == '0') n = 0;
+      *(senha+counter_digitos_senha) = n;
+      senhac[counter_digitos_senha] = tecla;
+      counter_digitos_senha++;
+      
+      if(counter_digitos_senha == 5){
+        /*TRANSFORMAR EM UM INT APENAS*/
+        int senha_decimal = (10000*(*senha)) + (1000*(*(senha+1))) + (100*(*(senha+2))) + (10*(*(senha+3))) + (1*(*(senha+4)));
+        Serial.print("Senha digitada: ");
+        Serial.println(senha_decimal);
+        counter_digitos_senha = 0;
+        /*CHECAR SENHA*/
+        for(int i = 0; i< 20; i++){
+          if(senha_decimal == senhas[i]){
+            Serial.println("Senha correta! Seja bem-vindo!");
+            n_tentativas = 0;
+            if(senhas[i] == senhaAdm) acrescentaEvento(millis(),senhaAdmVerificada,0);
+            else acrescentaEvento(millis(),senhaCorreta,3);
+            break;
+          }
+        }
+        n_tentativas++;
+        if(n_tentativas == 5) acrescentaEvento(millis(),maxTentativas,0);
+      }
+    }
+    void incluir_comando_de_config_aguardando_em_config(){
+    }
+  };
+=======
     Teclado(Keypad tec) : keypad(tec){}
 
     void update();
@@ -45,6 +84,7 @@ class RFID {
   public:
 
 };
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
 
 class Relay{
   private:

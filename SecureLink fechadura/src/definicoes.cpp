@@ -5,8 +5,12 @@
 #include "definicoes.h"
 #include "maquina_estados.h"
 
+
 long senhas[MAX_USUARIOS];
 QueueHandle_t filaEventos;
+SemaphoreHandle_t xBinarySemaphore;
+SemaphoreHandle_t semaforoVermelho;
+SemaphoreHandle_t semaforoVerde;
 
 
 /*### SETUP COMPONENTES ####*/
@@ -42,9 +46,11 @@ int EventoTipo[MAX_EVENTO], EventoDado[MAX_EVENTO];
 int numeroEventos = 0;
 void inicializaSenhas(){
   for(int i = 0; i<MAX_USUARIOS; i++){
-    senhas[i] = senhaAdm;
+    senhas[i] = 10101;
   }
+  senhas[0] = senhaAdm;
 }
+
 
 /*### FREERTOS ###*/
 #define TAMANHO_FILA 5

@@ -8,7 +8,10 @@
 
 // extern Led lampada;
 // extern Teclado teclado;
-// extern 
+// extern
+extern bool buzzerLiberado;
+extern bool ledVerdeLiberado;
+extern bool ledVermelhoLiberado;
 
 void executarAcao(int codigoAcao) {
     
@@ -17,19 +20,35 @@ void executarAcao(int codigoAcao) {
             // código exemplo -- modificar depois
             lcd.mostrarTelaInicial();
             lampada.ligar();
-            ledVermelho.desligar();
-            ledVerde.piscar();
+<<<<<<< HEAD
+            ledVerdeLiberado = true;
+            xSemaphoreGive(semaforoVerde);
+            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+=======
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
             break;
 
         case a02:
             //
             Serial.println("ALARME DISPARADO (freertos)");
-            acrescentaEvento(millis() + 10000, timeOutAlarme,0); 
+            buzzerLiberado = true;
+            ledVermelhoLiberado = true;
+            ledVerdeLiberado = false;
+
+            xSemaphoreGive(xBinarySemaphore);
+            xSemaphoreGive(semaforoVermelho);
+            acrescentaEvento(millis() + 10000, timeOutAlarme,0);
             teclado.n_tentativas = 0;
+
+            lampada.desligar();
             break;
         
         case a03:
             //
+            lampada.desligar();
+            Serial.println("PESSOA desPRESENTE (freertos)");
+            ledVerdeLiberado = false;
+            teclado.counter_digitos_senha = 0;
             break;
         
         case a04:
@@ -39,10 +58,14 @@ void executarAcao(int codigoAcao) {
         
         case a05:
             Serial.println("Senha correta. Seja bem-vindo! (freertos)");
+            ledVerdeLiberado = false;
+            ledVerde.ligar();
+            lampada.desligar();
             // 
             break;
         
         case a06:
+            Serial.println("Parabéns, agora você está no modo de configuração!");
             // 
             break;
         
@@ -52,6 +75,7 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a08:
+          buzzerLiberado = false;
           Serial.println("Alarme 'des'disparado");
             //
             break;
