@@ -15,19 +15,16 @@ void executarAcao(int codigoAcao) {
     switch (codigoAcao) {
         case a01: // acao a ser realizada
             // código exemplo -- modificar depois
-            lcd.clear();
-            lcd.backlight();
-            lcd.setCursor(0,0);
-            lcd.print("SecureLink");
-            lcd.setCursor(0,1);
-            lcd.print("Bem-Vindo");
+            lcd.mostrarTelaInicial();
             lampada.ligar();
+            ledVermelho.desligar();
+            ledVerde.piscar();
             break;
 
         case a02:
             //
             Serial.println("ALARME DISPARADO (freertos)");
-            acrescentaEvento(millis() + 10000, timeOutAlarme,0);
+            acrescentaEvento(millis() + 10000, timeOutAlarme,0); 
             teclado.n_tentativas = 0;
             break;
         
