@@ -234,67 +234,67 @@ void executarAcao(int codigoAcao) {
             teclado.counter_digitos_senha = 0;
             break;
 
-        case a41:
+        case a41: // computa tecla e printa ela
             // 
             break;
 
-        case a42:
+        case a42: // computa tecla e printa ela
             // 
             break;
 
-        case a43:
+        case a43: // printa "alterações descartadas"; printa na tela "Alterações"
             // 
             break;
 
-        case a44:
+        case a44: // printa "alterações descartadas"; printa na tela "Alterações"
             // 
             break;
 
-        case a45:
+        case a45: // printa "alterações descartadas"; printa na tela "Alterações"
             // 
             break;
 
-        case a46:
+        case a46: // não existe
             // 
             break;
 
-        case a47:
+        case a47: // não existe
             // 
             break;
 
-        case a48:
+        case a48: // printa na tela "Alterações"
             // 
             break;
 
-        case a49:
+        case a49: // printa na tela "Alterações"
             // 
             break;
 
-        case a50:
+        case a50: // printa na tela "Alterações"
             // 
             break;
 
-        case a51:
+        case a51:// printa "alterações salvas"; printa na tela "Alterações"
             // 
             break;
         
-        case a52:
+        case a52:// printa "alterações salvas"; printa na tela "Alterações"
             // 
             break;
 
-        case a53:
+        case a53: // printa "alterações salvas"; printa na tela "Alterações"
             // 
             break;
 
-        case a54:
+        case a54: // printa "Cadrastre o nome"
             // 
             break;
 
-        case a55:
+        case a55: // printa "Cadrastre a senha"
             // 
             break;
 
-        case a56:
+        case a56: // printa "Aproxime o novo RFID"
             // 
             break;
     }
