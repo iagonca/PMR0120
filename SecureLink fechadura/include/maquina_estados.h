@@ -100,29 +100,13 @@ static const transicao transicoes [] = {
   {emConfiguracao,     teclaRecebida,      emConfiguracao,     a09},
   {emConfiguracao,     retorna,            trancada,           a18},
   {emConfiguracao,     timeOutAguardando,  trancada,           a18},
-  {emConfiguracao,     novoUsuario,        aguardandoInfoNovo, a14},
   {emConfiguracao,     editarUsuario,      selecionarUser,     a19},
-
-  {aguardandoInfoNovo, teclaRecebida,      aguardandoInfoNovo, a10},
-  {aguardandoInfoNovo, salvandoDados,      emConfiguracao,     a16},
-  {aguardandoInfoNovo, retorna,            emConfiguracao,     a17},
-  {aguardandoInfoNovo, timeOutAguardando,  emConfiguracao,     a17},
 
   {aguardandoInfoUser, teclaRecebida,      aguardandoInfoUser, a12},
   {aguardandoInfoUser, retorna,            selecionarUser,     a24},
   {aguardandoInfoUser, timeOutAguardando,  selecionarUser,     a24},
-  {aguardandoInfoUser, editarNome,         editarNome,         a25},
   {aguardandoInfoUser, editarSenha,        editarSenha,        a26},
   {aguardandoInfoUser, editarRFID,         editarRFID,         a27},
-  {aguardandoInfoUser, novoNome,           cadastrarNome,      a54},
-  {aguardandoInfoUser, novaSenha,          cadastrarSenha,     a55},
-  {aguardandoInfoUser, novoRFID,           cadastrarRFID,      a56},
-
-  {editandoNome,       teclaRecebida,      editarNome,         a28},
-  {editandoNome,       retorna,            aguardandoInfoUser, a34},
-  {editandoNome,       timeOutAguardando,  aguardandoInfoUser, a34},
-  {editandoNome,       confirmaAlteracao,  aguardandoInfoUser, a31},
-  {editandoNome,       descartaAlteracao,  aguardandoInfoUser, a37},
 
   {editandoSenha,      teclaRecebida,      editarSenha,        a29},
   {editandoSenha,      retorna,            aguardandoInfoUser, a35},
@@ -136,34 +120,10 @@ static const transicao transicoes [] = {
   {editandoRFID,       confirmaAlteracao,  aguardandoInfoUser, a33},
   {editandoRFID,       descartaAlteracao,  aguardandoInfoUser, a39},
 
-  {cadastrarNome,      teclaRecebida,      cadastrarNome,      a42},
-  {cadastrarNome,      retorna,            aguardandoInfoNovo, a49},
-  {cadastrarNome,      timeOutAguardando,  aguardandoInfoNovo, a49},
-  {cadastrarNome,      confirmaAlteracao,  aguardandoInfoNovo, a51},
-  {cadastrarNome,      descartaAlteracao,  aguardandoInfoNovo, a45},
-
-  {cadastrarSenha,     teclaRecebida,      cadastrarSenha,     a41},
-  {cadastrarSenha,     retorna,            aguardandoInfoNovo, a48},
-  {cadastrarSenha,     timeOutAguardando,  aguardandoInfoNovo, a48},
-  {cadastrarSenha,     confirmaAlteracao,  aguardandoInfoNovo, a52},
-  {cadastrarSenha,     descartaAlteracao,  aguardandoInfoNovo, a44},
-
-  {cadastrarRFID,      rfidRecebido,       cadastrarRFID,      a15},
-  {cadastrarRFID,      retorna,            aguardandoInfoNovo, a50},
-  {cadastrarRFID,      timeOutAguardando,  aguardandoInfoNovo, a50},
-  {cadastrarRFID,      confirmaAlteracao,  aguardandoInfoNovo, a53},
-  {cadastrarRFID,      descartaAlteracao,  aguardandoInfoNovo, a43},
-
   {selecionarUser,     teclaRecebida,      selecionarUser,     a11},
-  {selecionarUser,     excluirUsuario,     confirmarExclusao,  a20},
   {selecionarUser,     editarInfos,        aguardandoInfoUser, a23},
   {selecionarUser,     retorna,            trancada,           a40},
   {selecionarUser,     timeOutAguardando,  trancada,           a40},
-
-  {confirmarExclusao,  teclaRecebida,      confirmarExclusao,  a13},
-  {confirmarExclusao,  salvandoDados,      selecionarUser,     a21},
-  {confirmarExclusao,  retorna,            selecionarUser,     a22}, 
-  {confirmarExclusao,  timeOutAguardando,  selecionarUser,     a22} 
 };
 
 extern matriz matrizTransicaoEstados[numEstados][numEventos];
