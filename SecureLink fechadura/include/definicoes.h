@@ -92,8 +92,6 @@ extern int EventoTipo[MAX_EVENTO];
 extern int EventoDado[MAX_EVENTO];
 extern int numeroEventos;
 
-void inicializaSenhas();
-
 void acrescentaEvento(unsigned long instante, int tipo, int dado);
 Evento obterEvento(void);
 

@@ -34,6 +34,10 @@ void executarAcao(int codigoAcao) {
         case a02: // dispara alarme; liga led vermelho; desliga led verde
             //
             Serial.println("ALARME DISPARADO (freertos)");
+
+            lcd.clear();
+            lcd.mostrarAlarme();
+
             buzzerLiberado = true;
             ledVermelhoLiberado = true;
             ledVerdeLiberado = false;

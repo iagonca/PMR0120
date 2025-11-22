@@ -13,40 +13,68 @@ void Teclado::update() {
 void Teclado::incluir_na_senha(char* senha) {
     if (tecla >= '0' && tecla <= '9') {
         // int n = tecla - '0';
-        senha[counterSenha] = tecla;
-        Serial.print(tecla);
-        counterSenha++;
+
+        if (counterSenha == 0) {
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("Digite a Senha:");
+        }
+        
+        if (counterSenha < 5) {
+            senha[counterSenha] = tecla;
+            Serial.print(tecla);
+
+            lcd.setCursor(1, counterSenha);
+            lcd.print("*");
+
+            counterSenha++;
+        }
         
         if(counterSenha == 5) {
-            
-
             usuario resultado = verificaSenha(senha);
-            
-            if (resultado.encontrado) {
-                n_tentativas = 0;
+            counterSenha = 0;
 
-                if (resultado.admin) {
-                    lcd.mostrarSenhaCorreta();
-                    lcd.setCursor(1,0);
-                    lcd.print("Admin");
-
-                    acrescentaEvento(millis(), senhaAdmVerificada, 0);
-                    return;
+            if (!resultado.encontrado) {
+                n_tentativas++;
+                lcd.mostrarSenhaIncorreta(n_tentativas);
+    
+                if(n_tentativas >= 5) {
+                    acrescentaEvento(millis(), maxTentativas, 0);
+                    n_tentativas = 0;
                 }
 
-                lcd.mostrarSenhaCorreta();
-                acrescentaEvento(millis(), senhaCorreta, 3);
                 return;
             }
 
-            n_tentativas++;
-            lcd.mostrarSenhaIncorreta(n_tentativas);
+            n_tentativas = 0;
 
-            if(n_tentativas == 5) {
-                acrescentaEvento(millis(), maxTentativas, 0);
+            if (resultado.admin) {
+                lcd.mostrarSenhaCorreta();
+                lcd.setCursor(1,0);
+                lcd.print("Admin");
+
+                acrescentaEvento(millis(), senhaAdmVerificada, 0);
+                return;
             }
+
+            lcd.mostrarSenhaCorreta();
+            lcd.setCursor(1,0);
+            lcd.print("Usuario ");
+            lcd.setCursor(1, 8);
+            lcd.print(resultado.nome);
+            acrescentaEvento(millis(), senhaCorreta, 3);
+            return;
+
         }
-    }   
+    }
+
+    else if (tecla == 'D' && counterSenha > 0) {
+        counterSenha--;
+        senha[counterSenha] = '\0';
+
+        lcd.setCursor(1, counterSenha);
+        lcd.print(" ");
+    }
 }
 
 
@@ -71,7 +99,7 @@ void Teclado::capturaNome(char *nome) {
             counterNome++;
             bufferNome[counterNome] = '\0';
 
-            lcd.setCursor(1, counterNome);
+            lcd.setCursor(1, counterNome-1);
             lcd.print(tecla);
         }
     }
@@ -79,7 +107,7 @@ void Teclado::capturaNome(char *nome) {
         counterNome--;
         bufferNome[counterNome] = '\0';
 
-        lcd.setCursor(1, counterNome);
+        lcd.setCursor(1, counterNome-1);
         lcd.print(" ");
     }
 
@@ -113,7 +141,7 @@ void Teclado::capturaSenha(int *senha) {
             bufferSenha[counterSenha] = n;
             counterSenha++;
 
-            lcd.setCursor(1, counterSenha);
+            lcd.setCursor(1, counterSenha-1);
             lcd.print("*");
         }
     } 
@@ -121,7 +149,7 @@ void Teclado::capturaSenha(int *senha) {
         counterSenha--;
         bufferSenha[counterSenha] = 0;
 
-        lcd.setCursor(1, counterSenha);
+        lcd.setCursor(1, counterSenha-1);
         lcd.print(" ");
     }
     else if (tecla == '#' && counterSenha == 5) {
