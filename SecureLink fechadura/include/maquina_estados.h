@@ -5,8 +5,8 @@
 #define true 1
 #define false 0
 
-#define numEstados 12
-#define numEventos 22
+#define numEstados 15
+#define numEventos 26
 // #define numAcoes 0 // preencher
 
 
