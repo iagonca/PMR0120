@@ -80,23 +80,30 @@ void executarAcao(int codigoAcao) {
         
         case a06: // printa "config"
             Serial.println("Parabéns, agora você está no modo de configuração!");
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
+            Serial.println("Para editar usuário existente, digite 1");
+            vTaskDelay( 7000 / portTICK_PERIOD_MS );
+            Serial.println("Para incluir novo usuário, digite 2");
+            vTaskDelay( 7000 / portTICK_PERIOD_MS );
             // 
             break;
         
         case a07: // tranca a porta; apaga led verde
+            ledVerdeLiberado = false;
             Serial.println("LED ON");
             //
             break;
         
         case a08: // para o alarme e volta pro estado "trancada"
-          buzzerLiberado = false;
-          Serial.println("Alarme 'des'disparado");
-          lampada.desligar();
-          ledVerdeLiberado = false;
+            buzzerLiberado = false;
+            Serial.println("Alarme 'des'disparado");
+            lampada.desligar();
+            ledVerdeLiberado = false;
             //
             break;
         
         case a09: // computa tecla
+            capturaSenha(int *senha)
             //
             break;
         
@@ -128,11 +135,21 @@ void executarAcao(int codigoAcao) {
         
         case a16: // salvando dados be voltando às configurações
             Serial.println("Configurações.");
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
+            Serial.println("Para editar usuário existente, digite 1");
+            vTaskDelay( 7000 / portTICK_PERIOD_MS );
+            Serial.println("Para incluir novo usuário, digite 2");
+            vTaskDelay( 7000 / portTICK_PERIOD_MS );
             //
             break;
 
         case a17: // printa na tela "config"
             Serial.println("Configurações.");
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
+            Serial.println("Para editar usuário existente, digite 1");
+            vTaskDelay( 7000 / portTICK_PERIOD_MS );
+            Serial.println("Para incluir novo usuário, digite 2");
+            vTaskDelay( 7000 / portTICK_PERIOD_MS );
             break;
 
         case a18: apaga led verde
@@ -142,8 +159,8 @@ void executarAcao(int codigoAcao) {
             teclado.counter_digitos_senha = 0;
             break;
 
-        case a19: // printa na tela "seleção de usuario"
-            Serial.println("Seleção de usuário.");
+        case a19: // printa na tela "seleção de usuario"; Como como como exibir usuarios :_( e selecionar tbm??!
+            Serial.println("Seleção de usuário.");          
             break;
 
         case a20: // printa na tela "confirma exclusão?"
@@ -244,21 +261,21 @@ void executarAcao(int codigoAcao) {
 
         case a43: // printa "alterações descartadas"; printa na tela "Alterações"
             Serial.println("Alterações descartadas");
-            delay(1000);
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a44: // printa "alterações descartadas"; printa na tela "Alterações"
             Serial.println("Alterações descartadas.");
-            delay(1000);
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a45: // printa "alterações descartadas"; printa na tela "Alterações"
             Serial.println("Alterações descartadas.");
-            delay(1000);
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
@@ -288,21 +305,21 @@ void executarAcao(int codigoAcao) {
 
         case a51:// printa "alterações salvas"; printa na tela "Alterações"
             Serial.println("Alterações salvas.");
-            delay(1000);
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
         
         case a52:// printa "alterações salvas"; printa na tela "Alterações"
             Serial.println("Alterações salvas.");
-            delay(1000);
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a53: // printa "alterações salvas"; printa na tela "Alterações"
             Serial.println("Alterações salvas.");
-            delay(1000);
+            vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
