@@ -14,8 +14,7 @@ extern bool ledVerdeLiberado;
 extern bool ledVermelhoLiberado;
 
 void executarAcao(int codigoAcao) {
-    Serial.print("Ação de código: ");
-    Serial.println(codigoAcao);
+    
     switch (codigoAcao) {
         case a01: // acao a ser realizada     // liga tela inicial; liga lampada; pisca led verde
             // código exemplo -- modificar depois
@@ -26,9 +25,12 @@ void executarAcao(int codigoAcao) {
             lcd.setCursor(0,1);
             lcd.print("Bem-Vindo");
             lampada.ligar();
+<<<<<<< HEAD
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
-            acrescentaEvento(millis()+TIMEOUT_AUTENTICACAO,timeOutAguardando,0);
+            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+=======
+>>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
             break;
  
   //    case a01: // acao a ser realizada
@@ -60,7 +62,7 @@ void executarAcao(int codigoAcao) {
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
             ledVerdeLiberado = false;
-            teclado.counterSenha = 0;
+            teclado.counter_digitos_senha = 0;
             break;
         
         case a04: // computa tecla 
@@ -101,11 +103,8 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a09: // computa tecla
+            capturaSenha(int *senha);
             //
-            break;
-        
-        case a10: // computa tecla
-            // 
             break;
         
         case a11: // computa tecla
@@ -115,61 +114,16 @@ void executarAcao(int codigoAcao) {
         case a12: // computa tecla
             // 
             break;
-        
-        case a13: // computa tecla
-            // 
-            break;
-        
-        case a14: // printa na tela "Alterações"
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-        
-        case a15: // printa na tela "rfid recebido"
-            Serial.println("RFID recebido!");
-            // 
-            break;
-        
-        case a16: // salvando dados be voltando às configurações
-            Serial.println("Configurações.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Para editar usuário existente, digite 1");
-            vTaskDelay( 7000 / portTICK_PERIOD_MS );
-            Serial.println("Para incluir novo usuário, digite 2");
-            vTaskDelay( 7000 / portTICK_PERIOD_MS );
-            //
-            break;
 
-        case a17: // printa na tela "config"
-            Serial.println("Configurações.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Para editar usuário existente, digite 1");
-            vTaskDelay( 7000 / portTICK_PERIOD_MS );
-            Serial.println("Para incluir novo usuário, digite 2");
-            vTaskDelay( 7000 / portTICK_PERIOD_MS );
-            break;
-
-        case a18: //apaga led verde
+        case a18: apaga led verde
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
             ledVerdeLiberado = false;
-            teclado.counterSenha = 0;
+            teclado.counter_digitos_senha = 0;
             break;
 
         case a19: // printa na tela "seleção de usuario"; Como como como exibir usuarios :_( e selecionar tbm??!
             Serial.println("Seleção de usuário.");          
-            break;
-
-        case a20: // printa na tela "confirma exclusão?"
-            Serial.println("Confirmar exclusão?");
-            break;
-
-        case a21: // print na tela "config salva"
-            Serial.println("Configuração salva.");
-            break;
-    
-        case a22: // printa na tela "seleção de usuario"
-            Serial.println("Seleção de usuário.");
             break;
 
         case a23: // printa na tela "aguardando info do usuario"
@@ -180,20 +134,12 @@ void executarAcao(int codigoAcao) {
             Serial.println("Configurações.");
             break;
 
-        case a25: // printa na tela "digite o nome"
-            Serial.println("Digite o nome: ");
-            break;
-
         case a26: // printa na tela "digite a senha"
             Serial.println("Digite a senha: ");
             break;
 
         case a27: // printa na tela "apresente RFID"
             Serial.println("Apresente RFID: ");
-            break;
-
-        case a28: // computa a tecla e printa ela
-            // 
             break;
 
         case a29: // computa a tecla e printa ela
@@ -204,10 +150,6 @@ void executarAcao(int codigoAcao) {
             // 
             break;
 
-        case a31: // salva o nome e printa na tela "aguardando info do usuário"
-            Serial.println("Aguardando info do usuário.");
-            break;
-
         case a32: // salva a senha e printa na tela "aguardando info do usuário"
             Serial.println("Aguardando info do usuário.");
             break;
@@ -216,19 +158,11 @@ void executarAcao(int codigoAcao) {
             Serial.println("Aguardando info do usuário.");
             break;
 
-        case a34: // printa na tela "aguardando indo do usuário"
-            Serial.println("Aguardando info do usuário.");
-            break;
-
         case a35: // printa na tela "aguardando indo do usuário"
             Serial.println("Aguardando info do usuário.");
             break;
 
         case a36: // printa na tela "aguardando indo do usuário"
-            Serial.println("Aguardando info do usuário.");
-            break;
-
-        case a37: // printa na tela "aguardando indo do usuário"
             Serial.println("Aguardando info do usuário.");
             break;
 
@@ -245,95 +179,7 @@ void executarAcao(int codigoAcao) {
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
             ledVerdeLiberado = false;
-            teclado.counterSenha = 0;
-            break;
-
-        case a41: // computa tecla e printa ela
-            // 
-            break;
-
-        case a42: // computa tecla e printa ela
-            // 
-            break;
-
-        case a43: // printa "alterações descartadas"; printa na tela "Alterações"
-            Serial.println("Alterações descartadas");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a44: // printa "alterações descartadas"; printa na tela "Alterações"
-            Serial.println("Alterações descartadas.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a45: // printa "alterações descartadas"; printa na tela "Alterações"
-            Serial.println("Alterações descartadas.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a46: // não existe
-            // 
-            break;
-
-        case a47: // não existe
-            // 
-            break;
-
-        case a48: // printa na tela "Alterações"
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a49: // printa na tela "Alterações"
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a50: // printa na tela "Alterações"
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a51:// printa "alterações salvas"; printa na tela "Alterações"
-            Serial.println("Alterações salvas.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-        
-        case a52:// printa "alterações salvas"; printa na tela "Alterações"
-            Serial.println("Alterações salvas.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a53: // printa "alterações salvas"; printa na tela "Alterações"
-            Serial.println("Alterações salvas.");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
-            // 
-            break;
-
-        case a54: // printa "Cadrastre o nome"
-            Serial.println("Cadastre o nome: ");
-            // 
-            break;
-
-        case a55: // printa "Cadrastre a senha"
-            Serial.println("Cadastre a senha: ");
-            // 
-            break;
-
-        case a56: // printa "Aproxime o novo RFID"
-            Serial.println("Apromixe o novo RFID");
-            // 
+            teclado.counter_digitos_senha = 0;
             break;
     }
 }
