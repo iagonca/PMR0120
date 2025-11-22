@@ -3,6 +3,7 @@
 #include "componentes.h"
 #include "definicoes.h"
 #include "maquina_estados.h"
+#include "usuarios.h"
 #include "acoes.h"
 #include <queue.h>
 #include <semphr.h>
@@ -21,12 +22,12 @@ void taskBlinkVerde(void *pvParameters);
 
 void setup(){
   iniciarMaquinaEstados();
-  inicializaSenhas();
   filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   xBinarySemaphore = xSemaphoreCreateBinary();
   semaforoVerde = xSemaphoreCreateBinary();
   semaforoVermelho = xSemaphoreCreateBinary();
   Serial.begin(115200);
+  carregaUsuarios();
   lcd.init();
   lcd.mostrarTelaInicial();
   xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
