@@ -124,11 +124,25 @@ class FimDeCurso{
   public:
     bool estado_inicial = 0;
     bool estado = 0;
+    unsigned long onTime = 0;
     FimDeCurso(int p){
       pino = p;
       pinMode(pino, INPUT_PULLUP);
     }
     void update(){
+      if(digitalRead(pino) == 0){
+        if(estado == 0){
+          acrescentaEvento(millis(), portaFechada, 0);
+          onTime = millis();
+        }
+        estado = 1;
+      }
+      else{
+        if (onTime > 0 && millis() - onTime > 1000){
+          estado = false;
+          onTime = 0;
+        }
+      }
 
     }
    

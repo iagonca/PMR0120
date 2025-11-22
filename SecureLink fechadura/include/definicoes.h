@@ -83,7 +83,7 @@ extern Led lampada;
 extern Relay rele;
 extern PIR movimento;
 extern Buzzer buzzer;
-extern FimDeCurso portaAberta;
+extern FimDeCurso sensorPorta;
 
 /*### MÁQUINA DE ESTADOS ###*/
 #define MAX_EVENTO 50

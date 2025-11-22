@@ -22,23 +22,15 @@ void executarAcao(int codigoAcao) {
             lcd.clear();
             lcd.backlight();
             lcd.setCursor(0,0);
-            lcd.print("SecureLink");
-            lcd.setCursor(0,1);
-            lcd.print("Bem-Vindo");
+            lcd.print("Digite sua senha");
+            lcd.setCursor(1,0);
+            lcd.print("ou use seu RFID.");
             lampada.ligar();
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
             acrescentaEvento(millis()+TIMEOUT_AUTENTICACAO,timeOutAguardando,0);
             break;
  
-  //    case a01: // acao a ser realizada
-  //          // código exemplo -- modificar depois
-  //          lcd.mostrarTelaInicial();
-  //          lampada.ligar();
-  //          ledVerdeLiberado = true;
-  //          xSemaphoreGive(semaforoVerde);
-  //          acrescentaEvento(millis()+10000,timeOutAguardando,0);
-  //          break;
 
         case a02: // dispara alarme; liga led vermelho; desliga led verde
             //
@@ -88,7 +80,7 @@ void executarAcao(int codigoAcao) {
         
         case a07: // tranca a porta; apaga led verde
             ledVerdeLiberado = false;
-            Serial.println("LED ON");
+            Serial.println("PORTA FOI FECHADA");
             //
             break;
         

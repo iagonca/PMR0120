@@ -91,6 +91,7 @@ void taskMaqEstados(void *pvParameters){
     // evento = obterEvento();
     movimento.update();
     teclado.update();
+    sensorPorta.update();
 
     if (xQueueReceive(filaEventos, &evento, portMAX_DELAY) != pdPASS)
     {
