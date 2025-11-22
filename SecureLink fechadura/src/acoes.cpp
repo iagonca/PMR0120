@@ -243,14 +243,23 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a43: // printa "alterações descartadas"; printa na tela "Alterações"
+            Serial.println("Alterações descartadas");
+            delay(1000);
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a44: // printa "alterações descartadas"; printa na tela "Alterações"
+            Serial.println("Alterações descartadas.");
+            delay(1000);
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a45: // printa "alterações descartadas"; printa na tela "Alterações"
+            Serial.println("Alterações descartadas.");
+            delay(1000);
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
@@ -263,38 +272,53 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a48: // printa na tela "Alterações"
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a49: // printa na tela "Alterações"
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a50: // printa na tela "Alterações"
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a51:// printa "alterações salvas"; printa na tela "Alterações"
+            Serial.println("Alterações salvas.");
+            delay(1000);
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
         
         case a52:// printa "alterações salvas"; printa na tela "Alterações"
+            Serial.println("Alterações salvas.");
+            delay(1000);
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a53: // printa "alterações salvas"; printa na tela "Alterações"
+            Serial.println("Alterações salvas.");
+            delay(1000);
+            Serial.println("Parabéns, agora você está no modo de info. do usuário!");
             // 
             break;
 
         case a54: // printa "Cadrastre o nome"
+            Serial.println("Cadastre o nome: ");
             // 
             break;
 
         case a55: // printa "Cadrastre a senha"
+            Serial.println("Cadastre a senha: ");
             // 
             break;
 
         case a56: // printa "Aproxime o novo RFID"
+            Serial.println("Apromixe o novo RFID");
             // 
             break;
     }
