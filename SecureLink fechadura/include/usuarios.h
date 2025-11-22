@@ -5,8 +5,7 @@
 #include "definicoes.h"
 
 struct usuario {
-    //bool encontrado;
-    char nome[50];
+    char nome[3];
     char senha[7];
     char rfid[20];
     bool admin;

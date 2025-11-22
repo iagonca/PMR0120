@@ -7,7 +7,7 @@
 #include "componentes.h"
 #include "maquina_estados.h"
 
-#define MAX_USUARIOS 20
+#define MAX_USUARIOS 5
 #define senhaAdm 12345
 #define TIMEOUT_AUTENTICACAO 30000
 #define TIMEOUT_ALARME 60000
@@ -68,7 +68,7 @@ class PIR;
 class Buzzer;
 class FimDeCurso;
 
-extern int senha[5];
+extern char senha[6];
 extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
 extern byte rowPins[KEYPAD_ROWS];
 extern byte colPins[KEYPAD_COLS];

@@ -26,7 +26,7 @@ class Teclado{
     Teclado(Keypad tec) : keypad(tec){}
 
     void update();
-    void incluir_na_senha(int *senha);
+    void incluir_na_senha(char *senha);
     bool verificarSenhaAdmin(int* senha);
     void capturaNome(char* nome);
     void capturaSenha(int* senha);

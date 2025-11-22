@@ -14,7 +14,7 @@ SemaphoreHandle_t semaforoVerde;
 
 
 /*### SETUP COMPONENTES ####*/
-int senha[5] = {0,0,0,0,0};
+char senha[6] = {0,0,0,0,0};
 
 char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
   {'1', '2', '3', 'A'},
@@ -44,12 +44,6 @@ FimDeCurso portaAberta(0);
 unsigned long EventoInstante[MAX_EVENTO];
 int EventoTipo[MAX_EVENTO], EventoDado[MAX_EVENTO];
 int numeroEventos = 0;
-void inicializaSenhas(){
-  for(int i = 0; i<MAX_USUARIOS; i++){
-    senhas[i] = 10101;
-  }
-  senhas[0] = senhaAdm;
-}
 
 
 /*### FREERTOS ###*/

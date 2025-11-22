@@ -1,6 +1,7 @@
 #include "componentes.h"
 #include "definicoes.h"
 #include "maquina_estados.h"
+#include "usuarios.h"
 
 void Teclado::update() {
     tecla = keypad.getKey();
@@ -9,26 +10,35 @@ void Teclado::update() {
         }
 }
 
-void Teclado::incluir_na_senha(int *senha) {
+void Teclado::incluir_na_senha(char* senha) {
     if (tecla >= '0' && tecla <= '9') {
-        int n = tecla - '0';
-        senha[counterSenha] = n;
+        // int n = tecla - '0';
+        senha[counterSenha] = tecla;
+        Serial.print(tecla);
         counterSenha++;
         
         if(counterSenha == 5) {
-            long senha_decimal = (10000L * senha[0]) + (1000L * senha[1]) + 
-                                 (100L * senha[2]) + (10L * senha[3]) + senha[4];
-            counterSenha = 0;
             
-            for(int i = 0; i < MAX_USUARIOS; i++) {
-                if(senha_decimal == senhas[i]) {
-                    n_tentativas = 0;
+
+            usuario resultado = verificaSenha(senha);
+            
+            if (resultado.encontrado) {
+                n_tentativas = 0;
+
+                if (resultado.admin) {
                     lcd.mostrarSenhaCorreta();
-                    acrescentaEvento(millis(), senhaCorreta, 3);
+                    lcd.setCursor(1,0);
+                    lcd.print("Admin");
+
+                    acrescentaEvento(millis(), senhaAdmVerificada, 0);
                     return;
                 }
+
+                lcd.mostrarSenhaCorreta();
+                acrescentaEvento(millis(), senhaCorreta, 3);
+                return;
             }
-            
+
             n_tentativas++;
             lcd.mostrarSenhaIncorreta(n_tentativas);
 
@@ -36,8 +46,9 @@ void Teclado::incluir_na_senha(int *senha) {
                 acrescentaEvento(millis(), maxTentativas, 0);
             }
         }
-    } 
+    }   
 }
+
 
 bool Teclado::verificarSenhaAdmin(int* senha) {
     long senha_decimal = (10000L * senha[0]) + (1000L * senha[1]) + 

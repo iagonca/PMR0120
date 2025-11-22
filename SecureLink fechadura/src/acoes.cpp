@@ -25,12 +25,9 @@ void executarAcao(int codigoAcao) {
             lcd.setCursor(0,1);
             lcd.print("Bem-Vindo");
             lampada.ligar();
-<<<<<<< HEAD
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
             acrescentaEvento(millis()+10000,timeOutAguardando,0);
-=======
->>>>>>> d7e299a06a5dcc9fc8345e9aa928abbfe49d2006
             break;
  
   //    case a01: // acao a ser realizada
@@ -62,7 +59,7 @@ void executarAcao(int codigoAcao) {
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
             ledVerdeLiberado = false;
-            teclado.counter_digitos_senha = 0;
+            teclado.counterSenha = 0;
             break;
         
         case a04: // computa tecla 
@@ -103,7 +100,7 @@ void executarAcao(int codigoAcao) {
             break;
         
         case a09: // computa tecla
-            capturaSenha(int *senha);
+            //capturaSenha(int *senha);
             //
             break;
         
@@ -115,11 +112,11 @@ void executarAcao(int codigoAcao) {
             // 
             break;
 
-        case a18: apaga led verde
+        case a18: //apaga led verde
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
             ledVerdeLiberado = false;
-            teclado.counter_digitos_senha = 0;
+            teclado.counterSenha = 0;
             break;
 
         case a19: // printa na tela "seleção de usuario"; Como como como exibir usuarios :_( e selecionar tbm??!
@@ -179,7 +176,7 @@ void executarAcao(int codigoAcao) {
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
             ledVerdeLiberado = false;
-            teclado.counter_digitos_senha = 0;
+            teclado.counterSenha = 0;
             break;
     }
 }
