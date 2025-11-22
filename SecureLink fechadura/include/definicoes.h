@@ -4,10 +4,11 @@
 #include <Arduino_FreeRTOS.h>
 #include <queue.h>
 #include <semphr.h>
-//#include "componentes.h"
+#include "componentes.h"
+#include "maquina_estados.h"
 
 #define MAX_USUARIOS 20
-#define senhaAdm 123456
+#define senhaAdm 12345
 #define TIMEOUT_AUTENTICACAO 30000
 #define TIMEOUT_ALARME 60000
 #define TIMEOUT_CONFIG 120000
@@ -17,8 +18,13 @@ class Evento {
     int _dado, _tipo;
 
   public:
-    Evento() : _tipo(nenhumEvento), _dado(0) {}
-    Evento(int tipo, int dado) :  _tipo(tipo), _dado(dado) {}
+    Evento(){};
+
+    Evento(int tipo, int dado)
+    {
+    _tipo = tipo;
+    _dado = dado;
+    }
     int getDado(void) { return _dado; };
     int getTipo(void) { return _tipo; };
     void setTipo(int tipo) { _tipo = tipo; }
