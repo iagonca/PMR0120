@@ -22,6 +22,7 @@ void taskBlinkVerde(void *pvParameters);
 
 void setup(){
   iniciarMaquinaEstados();
+  rele.ligar();
   filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   xBinarySemaphore = xSemaphoreCreateBinary();
   semaforoVerde = xSemaphoreCreateBinary();

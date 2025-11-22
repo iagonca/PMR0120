@@ -19,7 +19,7 @@ void Teclado::incluir_na_senha(char* senha) {
         
         if(counterSenha == 5) {
             
-
+            counterSenha = 0;
             usuario resultado = verificaSenha(senha);
             
             if (resultado.encontrado) {
