@@ -14,12 +14,13 @@ extern bool ledVerdeLiberado;
 extern bool ledVermelhoLiberado;
 
 void executarAcao(int codigoAcao) {
-    
+    /*DEBUGGING*/
+    Serial.println("==============================================");
+    Serial.print("AÇÃO: ");
+    Serial.println(codigoAcao);
+    Serial.println("=============================================="); 
+
     switch (codigoAcao) {
-        Serial.println("==============================================");
-        Serial.print("AÇÃO: ");
-        Serial.println(codigoAcao);
-        Serial.println("=============================================="); 
         case a01: // acao a ser realizada     // liga tela inicial; liga lampada; pisca led verde
             // código exemplo -- modificar depois
             lcd.clear();

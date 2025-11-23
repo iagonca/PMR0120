@@ -157,6 +157,8 @@ void taskBlinkVerde(void *pvParameters){
     {
       ledVerde.ligar();
       vTaskDelay(xDelayInTicks);
+      if (!ledVerdeLiberado) break; /*Para o taskBlinkVerde não desligar o ledVerde no intervalo em que o ledVerdeLiberado está
+      falso, mas o while já foi iniciado */
       ledVerde.desligar();
       vTaskDelay(xDelayInTicks);
     }

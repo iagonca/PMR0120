@@ -130,6 +130,12 @@ class FimDeCurso{
       pinMode(pino, INPUT_PULLUP);
     }
     void update(){
+      estado = digitalRead(pino);
+      if (estado != estado_inicial && estado == LOW) {
+          acrescentaEvento(millis(), portaFechada, 0);
+      }
+      estado_inicial = estado;
+      /*
       if(digitalRead(pino) == 0){
         if(estado == 0){
           acrescentaEvento(millis(), portaFechada, 0);
@@ -142,7 +148,7 @@ class FimDeCurso{
           estado = false;
           onTime = 0;
         }
-      }
+      }*/
 
     }
    
