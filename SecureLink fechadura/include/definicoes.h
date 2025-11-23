@@ -93,6 +93,7 @@ extern int EventoDado[MAX_EVENTO];
 extern int numeroEventos;
 
 void acrescentaEvento(unsigned long instante, int tipo, int dado);
+void removeEvento(int tipo);
 Evento obterEvento(void);
 
 /*### FREERTOS ###*/

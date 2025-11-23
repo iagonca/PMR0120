@@ -84,6 +84,7 @@ int obterProximoEstado(int estado, int evento);
 struct transicao {int estado; int evento; int prox_estado; int acao; };
 static const transicao transicoes [] = {
   {trancada,           pessoaPresente,     emAutenticacao,     a01},
+  {trancada,           teclaRecebida,      emAutenticacao,     a01},
 
   {aberta,             portaFechada,       trancada,           a07},
 

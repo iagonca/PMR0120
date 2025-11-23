@@ -16,6 +16,10 @@ extern bool ledVermelhoLiberado;
 void executarAcao(int codigoAcao) {
     
     switch (codigoAcao) {
+        Serial.println("==============================================");
+        Serial.print("AÇÃO: ");
+        Serial.println(codigoAcao);
+        Serial.println("=============================================="); 
         case a01: // acao a ser realizada     // liga tela inicial; liga lampada; pisca led verde
             // código exemplo -- modificar depois
             lcd.clear();
@@ -27,14 +31,14 @@ void executarAcao(int codigoAcao) {
             lampada.ligar();
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             break;
- 
 
         case a02: // dispara alarme; liga led vermelho; desliga led verde
             //
             Serial.println("ALARME DISPARADO (freertos)");
-
+            ledVermelho.desligar();
+            ledVerde.desligar();
             lcd.clear();
             lcd.mostrarAlarme();
 
@@ -44,6 +48,7 @@ void executarAcao(int codigoAcao) {
 
             xSemaphoreGive(xBinarySemaphore);
             xSemaphoreGive(semaforoVermelho);
+            removeEvento(timeOutAguardando);
             acrescentaEvento(millis() + 10000, timeOutAlarme,0);
             teclado.n_tentativas = 0;
 
@@ -54,6 +59,7 @@ void executarAcao(int codigoAcao) {
             //
             lampada.desligar();
             Serial.println("PESSOA desPRESENTE (freertos)");
+            lcd.mostrarTelaInicial();
             ledVerdeLiberado = false;
             teclado.counterSenha = 0;
             break;
@@ -66,12 +72,17 @@ void executarAcao(int codigoAcao) {
         case a05: // printa na tela; liga led verde; desliga lampada; abre a fechadura
             Serial.println("Senha correta. Seja bem-vindo! (freertos)");
             ledVerdeLiberado = false;
+            ledVerde.desligar();
             ledVerde.ligar();
+            ledVermelho.desligar();
             lampada.desligar();
+            rele.desligar();
+            removeEvento(timeOutAguardando);
             // 
             break;
         
         case a06: // printa "config"
+            removeEvento(timeOutAguardando);
             Serial.println("Parabéns, agora você está no modo de configuração!");
             vTaskDelay( 1000 / portTICK_PERIOD_MS );
             Serial.println("Para editar usuário existente, digite 1");
@@ -83,15 +94,22 @@ void executarAcao(int codigoAcao) {
         
         case a07: // tranca a porta; apaga led verde
             ledVerdeLiberado = false;
+            ledVerde.desligar();
+            lcd.mostrarTelaInicial();
+            ledVermelho.ligar();
             Serial.println("PORTA FOI FECHADA");
+            rele.ligar();
             //
             break;
         
         case a08: // para o alarme e volta pro estado "trancada"
             buzzerLiberado = false;
-            Serial.println("Alarme 'des'disparado");
+            ledVermelhoLiberado = false;
+            Serial.println("Alarme desligado");
             lampada.desligar();
             ledVerdeLiberado = false;
+            ledVermelho.ligar();
+            lcd.mostrarTelaInicial();
             //
             break;
         
