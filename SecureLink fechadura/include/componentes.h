@@ -291,10 +291,14 @@ class Display {
       // Próxima linha pode mostrar "# Sim * Nao"
     }
     
-    void mostrarSenhaCorreta() {
+    void mostrarSenhaCorreta(char* usuario) {
       clear();
       setCursor(0, 0);
       print("Bem-vindo!");
+      setCursor(1,0);
+      print("Usuario ");
+      setCursor(1, 8);
+      print(usuario);
     }
     
     void mostrarSenhaIncorreta(int tentativas) {

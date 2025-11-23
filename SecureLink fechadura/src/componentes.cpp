@@ -49,19 +49,12 @@ void Teclado::incluir_na_senha(char* senha) {
             n_tentativas = 0;
 
             if (resultado.admin) {
-                lcd.mostrarSenhaCorreta();
-                lcd.setCursor(1,0);
-                lcd.print("Admin");
-
+                lcd.mostrarSenhaCorreta("Admin");
                 acrescentaEvento(millis(), senhaAdmVerificada, 0);
                 return;
             }
 
-            lcd.mostrarSenhaCorreta();
-            lcd.setCursor(1,0);
-            lcd.print("Usuario ");
-            lcd.setCursor(1, 8);
-            lcd.print(resultado.nome);
+            lcd.mostrarSenhaCorreta(resultado.nome);
             acrescentaEvento(millis(), senhaCorreta, 3);
             return;
 
