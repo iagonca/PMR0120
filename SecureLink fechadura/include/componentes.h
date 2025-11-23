@@ -160,6 +160,16 @@ class Display {
       lcd->backlight();
       lcd->clear();
     }
+
+  class RFID {
+  private:
+    const char* tagValida;
+    
+  public:
+    RFID(const char* tag) : tagValida(tag) {}
+    
+    void update();
+};
     
     // Métodos básicos (wrapper para LiquidCrystal_I2C)
     void clear() { lcd->clear(); }

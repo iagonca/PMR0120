@@ -161,3 +161,24 @@ void PIR::update() {
     }
     ultimoEstado = estadoAtual;
 }
+
+void RFID::update() {
+  if (input.length() > 0) {
+
+    usuario.resultado = verificaRFID(input);
+
+	if (verificaRFID(input).encontrado) {
+        lcd.mostrarSenhaCorreta();
+        lcd.setCursor(1,0);
+        lcd.print("Usuario ");
+        lcd.setCursor(1, 8);
+        lcd.print(resultado.nome);
+		acrescentaEvento(millis(), rfidCorreto, 0);
+	}
+
+    else {
+        lcd.mostrarErro("RFID Incorreto");
+        acrescentaEvento(millis(), rfidIncorreto, 0);
+        }
+    }
+}
