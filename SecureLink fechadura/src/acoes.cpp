@@ -84,12 +84,12 @@ void executarAcao(int codigoAcao) {
         
         case a06: // printa "config"
             removeEvento(timeOutAguardando);
-            Serial.println("Parabéns, agora você está no modo de configuração!");
-            vTaskDelay( 1000 / portTICK_PERIOD_MS );
-            Serial.println("Para editar usuário existente, digite 1");
-            vTaskDelay( 7000 / portTICK_PERIOD_MS );
-            Serial.println("Para incluir novo usuário, digite 2");
-            vTaskDelay( 7000 / portTICK_PERIOD_MS );
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Editar usuario.");
+            lcd.setCursor(1,0);
+            lcd.print("Selecione: 1 a 5");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             // 
             break;
         
@@ -114,48 +114,54 @@ void executarAcao(int codigoAcao) {
             //
             break;
         
-        case a09: // computa tecla
-            //capturaSenha(int *senha);
-            //
-            break;
-        
         case a11: // computa tecla
-            // 
+            teclado.selecaoSelecionarUser();
             break;
         
-        case a12: // computa tecla
-            // 
-            break;
-
-        case a18: //apaga led verde
-            lampada.desligar();
-            Serial.println("PESSOA desPRESENTE (freertos)");
-            ledVerdeLiberado = false;
-            teclado.counterSenha = 0;
-            break;
-
-        case a19: // printa na tela "seleção de usuario"; Como como como exibir usuarios :_( e selecionar tbm??!
-            Serial.println("Seleção de usuário.");          
+        case a12: // computa tecla A ou B para selecionar rfid ou senha
+            teclado.selecaoAguardandoInfoUser();
+            // teclado. asterisco
             break;
 
         case a23: // printa na tela "aguardando info do usuario"
-            Serial.println("Aguardando informação do usuário.");
+            removeEvento(timeOutAguardando);
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("A: editar RFID");
+            lcd.setCursor(1,0);
+            lcd.print("B: editar senha");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
+            // 
             break;
         
         case a24: // printa na tela "config"
-            Serial.println("Configurações.");
+            removeEvento(timeOutAguardando);
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Editar usuario.");
+            lcd.setCursor(1,0);
+            lcd.print("Selecione: 1 a 5");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             break;
 
         case a26: // printa na tela "digite a senha"
-            Serial.println("Digite a senha: ");
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Digite a nova");
+            lcd.setCursor(1,0);
+            lcd.print("senha.");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             break;
 
         case a27: // printa na tela "apresente RFID"
-            Serial.println("Apresente RFID: ");
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Aproxime RFID");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             break;
 
         case a29: // computa a tecla e printa ela
-            // 
+            // teclado.receberNovaSenha()
             break;
 
         case a30: // computa o novo RFID
@@ -170,8 +176,13 @@ void executarAcao(int codigoAcao) {
             Serial.println("Aguardando info do usuário.");
             break;
 
-        case a35: // printa na tela "aguardando indo do usuário"
-            Serial.println("Aguardando info do usuário.");
+        case a35: // 
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("A: editar RFID");
+            lcd.setCursor(1,0);
+            lcd.print("B: editar senha");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             break;
 
         case a36: // printa na tela "aguardando indo do usuário"
@@ -182,8 +193,8 @@ void executarAcao(int codigoAcao) {
             Serial.println("Aguardando info do usuário.");
             break;
 
-        case a39: // printa na tela "aguardando indo do usuário"
-            Serial.println("Aguardando info do usuário.");
+        case a39: // descartar alterações
+
             break;
 
         case a40: // desliga lampada; desliga led; reseta a tela

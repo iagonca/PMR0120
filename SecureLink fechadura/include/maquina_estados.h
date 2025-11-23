@@ -107,7 +107,7 @@ static const transicao transicoes [] = {
   {aguardandoInfoUser, retorna,            selecionarUser,     a24},
   {aguardandoInfoUser, timeOutAguardando,  selecionarUser,     a24},
   {aguardandoInfoUser, editarSenha,        editarSenha,        a26},
-  {aguardandoInfoUser, editarRFID,         editarRFID,         a27},
+  {aguardandoInfoUser, editarRFID,         editandoRFID,       a27},
 
   {editandoSenha,      teclaRecebida,      editarSenha,        a29},
   {editandoSenha,      retorna,            aguardandoInfoUser, a35},
@@ -115,7 +115,7 @@ static const transicao transicoes [] = {
   {editandoSenha,      confirmaAlteracao,  aguardandoInfoUser, a32},
   {editandoSenha,      descartaAlteracao,  aguardandoInfoUser, a38},
 
-  {editandoRFID,       teclaRecebida,      editarRFID,         a30},
+  {editandoRFID,       teclaRecebida,      editandoRFID,       a30},
   {editandoRFID,       retorna,            aguardandoInfoUser, a36},
   {editandoRFID,       timeOutAguardando,  aguardandoInfoUser, a36},
   {editandoRFID,       confirmaAlteracao,  aguardandoInfoUser, a33},
