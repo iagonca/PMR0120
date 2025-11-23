@@ -62,6 +62,7 @@ void executarAcao(int codigoAcao) {
             Serial.println("PESSOA desPRESENTE (freertos)");
             lcd.mostrarTelaInicial();
             ledVerdeLiberado = false;
+            ledVerde.desligar();
             teclado.counterSenha = 0;
             break;
         
