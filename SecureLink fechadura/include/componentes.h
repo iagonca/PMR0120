@@ -22,20 +22,18 @@ class Teclado{
     int counterSenha = 0;
     int bufferSenha[5];
     int n_tentativas = 0;
+    int n_usuario = 0;
 
     Teclado(Keypad tec) : keypad(tec){}
 
     void update();
     void incluir_na_senha(char *senha);
-    bool verificarSenhaAdmin(int* senha);
-    void capturaNome(char* nome);
-    void capturaSenha(int* senha);
+    void capturaSenha(char* senha);
+    void capturaRFID(char* rfid);
     void retornar();
     void confirmaExclusao();
-    void selecaoEmConfiguracao();
     void selecaoSelecionarUser();
     void selecaoAguardandoInfoUser();
-    void selecaoNovoUsuario();
 
     void incluir_comando_de_config_aguardando_em_config(){} // a fazer
   };
