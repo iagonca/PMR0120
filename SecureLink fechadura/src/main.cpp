@@ -13,6 +13,7 @@ bool ledVerdeLiberado = 0;
 bool ledVermelhoLiberado = 0;
 
 void acrescentaEvento(unsigned long instante, int tipo, int dado);
+void removeEvento(int tipo);
 void taskMaqEstados(void *pvParameters);
 void taskBlink(void *pvParameters);
 void taskBuzzer(void *pvParameters);
@@ -23,6 +24,7 @@ void taskBlinkVerde(void *pvParameters);
 void setup(){
   iniciarMaquinaEstados();
   rele.ligar();
+  ledVermelho.ligar();
   filaEventos = xQueueCreate(TAMANHO_FILA, sizeof(Evento));
   xBinarySemaphore = xSemaphoreCreateBinary();
   semaforoVerde = xSemaphoreCreateBinary();
@@ -80,6 +82,32 @@ void acrescentaEvento(unsigned long instante, int tipo, int dado)
   EventoTipo[i] = tipo;
   EventoDado[i] = dado;
   numeroEventos++;
+}
+
+void removeEvento(int tipo)
+{
+  int i = 0;
+  while (i < numeroEventos)
+  {
+    if (EventoTipo[i] == tipo)
+    {
+      // Se encontrou o evento, desloca todos os próximos para "tapar o buraco"
+      for (int j = i; j < numeroEventos - 1; j++)
+      {
+        EventoInstante[j] = EventoInstante[j + 1];
+        EventoTipo[j] = EventoTipo[j + 1];
+        EventoDado[j] = EventoDado[j + 1];
+      }
+      numeroEventos--;
+      // Não incrementamos 'i' aqui porque precisamos verificar a nova posição 'i'
+      // caso existam múltiplos eventos do mesmo tipo
+      Serial.println("Evento removido: " + String(tipo));
+    }
+    else
+    {
+      i++;
+    }
+  }
 }
 
 /*### FREERTOS ###*/
