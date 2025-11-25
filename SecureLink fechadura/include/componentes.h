@@ -36,7 +36,17 @@ class Teclado{
     void selecaoAguardandoInfoUser();
 
     void incluir_comando_de_config_aguardando_em_config(){} // a fazer
-  };
+};
+
+class RFID {
+  private:
+    const char* tagValida;
+    
+  public:
+    RFID(const char* tag) : tagValida(tag) {}
+    
+    void update();
+};
 
 class Relay{
   private:
@@ -166,16 +176,6 @@ class Display {
       lcd->backlight();
       lcd->clear();
     }
-
-  class RFID {
-  private:
-    const char* tagValida;
-    
-  public:
-    RFID(const char* tag) : tagValida(tag) {}
-    
-    void update();
-};
     
     // Métodos básicos (wrapper para LiquidCrystal_I2C)
     void clear() { lcd->clear(); }

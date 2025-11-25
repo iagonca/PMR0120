@@ -139,7 +139,18 @@ void Teclado::confirmaExclusao() {
 }
 
 void Teclado::selecaoSelecionarUser() {
-    int n_usuario = tecla - '0';
+    if (tecla >= '1' && tecla <= '9') {
+        int n_usuario = tecla - '0';
+        lcd.clear();
+        lcd.setCursor(1,0);
+        lcd.print("Usuario ");
+        lcd.print(tecla);
+    }
+    else {
+        lcd.clear();
+        lcd.setCursor(1,0);
+        lcd.print("Erro! ");
+    }
 }
 
 void Teclado::selecaoAguardandoInfoUser() {
@@ -165,14 +176,10 @@ void PIR::update() {
 void RFID::update() {
   if (input.length() > 0) {
 
-    usuario.resultado = verificaRFID(input);
+    usuario resultado = verificaRFID(input);
 
-	if (verificaRFID(input).encontrado) {
-        lcd.mostrarSenhaCorreta();
-        lcd.setCursor(1,0);
-        lcd.print("Usuario ");
-        lcd.setCursor(1, 8);
-        lcd.print(resultado.nome);
+	if (resultado.encontrado) {
+        lcd.mostrarSenhaCorreta(resultado.nome);
 		acrescentaEvento(millis(), rfidCorreto, 0);
 	}
 
