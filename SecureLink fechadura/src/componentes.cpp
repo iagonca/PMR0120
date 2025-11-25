@@ -207,21 +207,21 @@ void PIR::update() {
     ultimoEstado = estadoAtual;
 }
 
-void RFID::update(String input) {
-  if (input.length() > 0) {
-    char rfidBuffer[20];
-    input.toCharArray(rfidBuffer, 20);
+void RFID::update() {
+    if (input.length() > 0) {
+        char rfidBuffer[20];
+        input.toCharArray(rfidBuffer, 20);
 
-    usuario resultado = verificaRFID(rfidBuffer);
+        usuario resultado = verificaRFID(rfidBuffer);
 
-	if (resultado.encontrado) {
-        lcd.mostrarSenhaCorreta(resultado.nome);
-		acrescentaEvento(millis(), rfidCorreto, 0);
-	}
+        if (resultado.encontrado) {
+            lcd.mostrarSenhaCorreta(resultado.nome);
+            acrescentaEvento(millis(), rfidCorreto, 0);
+        }
 
-    else {
-        lcd.mostrarErro("RFID Incorreto");
-        acrescentaEvento(millis(), rfidIncorreto, 0);
+        else {
+            lcd.mostrarErro("RFID Incorreto");
+            acrescentaEvento(millis(), rfidIncorreto, 0);
         }
     }
 }

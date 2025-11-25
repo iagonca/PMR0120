@@ -37,7 +37,7 @@ Led lampada(10);
 Relay rele(13);
 PIR movimento(7);
 Buzzer buzzer(6);
-FimDeCurso sensorPorta(0);
+FimDeCurso sensorPorta(2);
 RFID rfid;
 
 

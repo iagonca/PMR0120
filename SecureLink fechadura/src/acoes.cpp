@@ -15,7 +15,7 @@ extern bool ledVermelhoLiberado;
 
 void executarAcao(int codigoAcao) {
     /*DEBUGGING*/
-    Serial.println("==============================================");
+    Serial.println("=================");
     Serial.print("AÇÃO: ");
     Serial.println(codigoAcao);
     Serial.println("=============================================="); 
@@ -167,7 +167,7 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a30: // computa o novo RFID
-            // 
+            teclado.capturaRFID(NULL);
             break;
 
         case a32: // salva a senha e printa na tela "aguardando info do usuário"
@@ -182,7 +182,13 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a33: // salva o RFID e printa na tela "aguardando info do usuário"
-            Serial.println("Aguardando info do usuário.");
+            removeEvento(timeOutAguardando);
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("A: editar RFID");
+            lcd.setCursor(1,0);
+            lcd.print("B: editar senha");
+            acrescentaEvento(millis()+10000,timeOutAguardando,0);
             break;
 
         case a35: //

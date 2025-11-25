@@ -22,6 +22,13 @@ void taskBlinkVermelho(void *pvParameters);
 void taskBlinkVerde(void *pvParameters);
 
 void setup(){
+  // Serial.begin(115200);
+  // Serial.println("Please enter your name:");
+  // while (!Serial.available());
+  // String name = Serial.readStringUntil('\n');
+  // Serial.print("Hello, ");
+  // Serial.println(name);
+
   iniciarMaquinaEstados();
   rele.ligar();
   ledVermelho.ligar();
@@ -34,7 +41,7 @@ void setup(){
   lcd.init();
   lcd.mostrarTelaInicial();
   xTaskCreate(taskBlink,"piscaLed",128,NULL,2,NULL);
-  xTaskCreate(taskMaqEstados,"Maquina de Estados",128,NULL,2,NULL);
+  xTaskCreate(taskMaqEstados,"Maquina de Estados",1024,NULL,2,NULL);
   xTaskCreate(taskObterEvento, "taskObterEvento", 128, NULL, 1, NULL);
   xTaskCreate(taskBuzzer,"buzzer tocando alternadamente",128,NULL,1,NULL);
   xTaskCreate(taskBlinkVermelho,"blinkVermelho",128,NULL,1,NULL);
@@ -63,7 +70,9 @@ Evento obterEvento(void)
 
 void acrescentaEvento(unsigned long instante, int tipo, int dado)
 {
+  Serial.println("=================");
   Serial.println("Acrescenta evento = " + String(tipo));
+  Serial.println("==============================================");
   if (numeroEventos == MAX_EVENTO)
     return;
   int i, j;
@@ -91,7 +100,6 @@ void removeEvento(int tipo)
   {
     if (EventoTipo[i] == tipo)
     {
-      // Se encontrou o evento, desloca todos os próximos para "tapar o buraco"
       for (int j = i; j < numeroEventos - 1; j++)
       {
         EventoInstante[j] = EventoInstante[j + 1];
@@ -99,8 +107,6 @@ void removeEvento(int tipo)
         EventoDado[j] = EventoDado[j + 1];
       }
       numeroEventos--;
-      // Não incrementamos 'i' aqui porque precisamos verificar a nova posição 'i'
-      // caso existam múltiplos eventos do mesmo tipo
       Serial.println("Evento removido: " + String(tipo));
     }
     else
@@ -127,15 +133,27 @@ void taskMaqEstados(void *pvParameters){
     // Leitura serial não-bloqueante
     while (Serial.available() > 0) {
       char receivedChar = (char)Serial.read();
-      if (receivedChar == '\n') {
+      Serial.print("Lido: "); Serial.println(receivedChar);
+
+      if (receivedChar == '\n' || receivedChar == '\r') {
         serialBuffer.trim();
+
         if (serialBuffer.length() > 0) {
-          String input = serialBuffer; // Copia para a variável global
-          rfid.update(input);      // Processa o RFID lido
+          input = serialBuffer; // Copia para a variável global
+
+          if (estado == editandoRFID) { // Se estiver no estado de edição de RFID
+             acrescentaEvento(millis(), rfidRecebido, 0); // Gera o evento para a máquina de estados
+          } 
+          else { // Caso contrário, tenta autenticar
+             rfid.update();
+          }
+
         }
-        serialBuffer = ""; // Limpa o buffer para a próxima leitura
-      } else {
-        serialBuffer += receivedChar; // Adiciona o caractere ao buffer
+        serialBuffer = "";
+        
+      } 
+      else {
+        serialBuffer += receivedChar;
       }
     }
 
