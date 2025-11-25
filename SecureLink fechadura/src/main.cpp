@@ -22,13 +22,6 @@ void taskBlinkVermelho(void *pvParameters);
 void taskBlinkVerde(void *pvParameters);
 
 void setup(){
-  // Serial.begin(115200);
-  // Serial.println("Please enter your name:");
-  // while (!Serial.available());
-  // String name = Serial.readStringUntil('\n');
-  // Serial.print("Hello, ");
-  // Serial.println(name);
-
   iniciarMaquinaEstados();
   rele.ligar();
   ledVermelho.ligar();
@@ -70,9 +63,10 @@ Evento obterEvento(void)
 
 void acrescentaEvento(unsigned long instante, int tipo, int dado)
 {
-  Serial.println("=================");
-  Serial.println("Acrescenta evento = " + String(tipo));
-  Serial.println("==============================================");
+  // COMENTARIO PARA DEBUG
+  // Serial.println("=================");
+  // Serial.println("Acrescenta evento = " + String(tipo));
+  // Serial.println("==============================================");
   if (numeroEventos == MAX_EVENTO)
     return;
   int i, j;
