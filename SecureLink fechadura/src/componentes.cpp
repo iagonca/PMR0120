@@ -78,6 +78,8 @@ void Teclado::incluir_na_senha(char* senha) {
 }
 
 void Teclado::capturaSenha(char* senha) {
+    Serial.print("N_USUARIO = ");
+    Serial.println(n_usuario);
     if (tecla >= '0' && tecla <= '9') {
 
         if (counterSenha == 0) {
@@ -158,7 +160,7 @@ void Teclado::confirmaExclusao() {
 
 void Teclado::selecaoSelecionarUser() {
     if (tecla >= '1' && tecla <= '9') {
-        int n_usuario = tecla - '0';
+        n_usuario = tecla - '0';
         lcd.clear();
         lcd.setCursor(1,0);
         lcd.print("Usuario ");
