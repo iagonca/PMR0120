@@ -106,7 +106,7 @@ static const transicao transicoes [] = {
   {aguardandoInfoUser, teclaRecebida,      aguardandoInfoUser, a12},
   {aguardandoInfoUser, retorna,            selecionarUser,     a24},
   {aguardandoInfoUser, timeOutAguardando,  selecionarUser,     a24},
-  {aguardandoInfoUser, editarSenha,        editarSenha,        a26},
+  {aguardandoInfoUser, editarSenha,        editandoSenha,      a26},
   {aguardandoInfoUser, editarRFID,         editandoRFID,       a27},
 
   {editandoSenha,      teclaRecebida,      editarSenha,        a29},
