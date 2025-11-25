@@ -179,8 +179,6 @@ void Teclado::selecaoAguardandoInfoUser() {
         case 'B':
             acrescentaEvento(millis(), editarRFID, 0);
             break;
-        case '*':
-            
     }
 }
 
