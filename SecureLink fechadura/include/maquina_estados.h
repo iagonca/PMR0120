@@ -83,25 +83,26 @@ int obterProximoEstado(int estado, int evento);
 
 struct transicao {int estado; int evento; int prox_estado; int acao; };
 static const transicao transicoes [] = {
+  
   {trancada,           pessoaPresente,     emAutenticacao,     a01},
   {trancada,           teclaRecebida,      emAutenticacao,     a01},
 
-  {aberta,             portaFechada,       trancada,           a07},
-
-  {emAutenticacao,     teclaRecebida,      emAutenticacao,     a04},
   {emAutenticacao,     rfidIncorreto,      alarmeDisparado,    a02},
-  {emAutenticacao,     rfidCorreto,        aberta,             a05},
-  {emAutenticacao,     senhaCorreta,       aberta,             a05},
   {emAutenticacao,     maxTentativas,      alarmeDisparado,    a02},
   {emAutenticacao,     timeOutAguardando,  trancada,           a03},
+  {emAutenticacao,     teclaRecebida,      emAutenticacao,     a04},
+  {emAutenticacao,     rfidCorreto,        aberta,             a05},
+  {emAutenticacao,     senhaCorreta,       aberta,             a05},
   {emAutenticacao,     senhaAdmVerificada, emConfiguracao,     a06},
+
+  {aberta,             portaFechada,       trancada,           a07},
 
   {alarmeDisparado,    timeOutAlarme,      trancada,           a08},
 
-  {emConfiguracao,     teclaRecebida,      emConfiguracao,     a09},
-  {emConfiguracao,     retorna,            trancada,           a18},
-  {emConfiguracao,     timeOutAguardando,  trancada,           a18},
-  {emConfiguracao,     editarUsuario,      selecionarUser,     a19},
+  {selecionarUser,     teclaRecebida,      selecionarUser,     a11},
+  {selecionarUser,     editarInfos,        aguardandoInfoUser, a23},
+  {selecionarUser,     retorna,            trancada,           a40},
+  {selecionarUser,     timeOutAguardando,  trancada,           a40},
 
   {aguardandoInfoUser, teclaRecebida,      aguardandoInfoUser, a12},
   {aguardandoInfoUser, retorna,            selecionarUser,     a24},
@@ -110,21 +111,16 @@ static const transicao transicoes [] = {
   {aguardandoInfoUser, editarRFID,         editandoRFID,       a27},
 
   {editandoSenha,      teclaRecebida,      editarSenha,        a29},
-  {editandoSenha,      retorna,            aguardandoInfoUser, a35},
-  {editandoSenha,      timeOutAguardando,  aguardandoInfoUser, a35},
   {editandoSenha,      confirmaAlteracao,  aguardandoInfoUser, a32},
+  {editandoSenha,      timeOutAguardando,  aguardandoInfoUser, a35},
   {editandoSenha,      descartaAlteracao,  aguardandoInfoUser, a38},
 
   {editandoRFID,       teclaRecebida,      editandoRFID,       a30},
+  {editandoRFID,       confirmaAlteracao,  aguardandoInfoUser, a33},
   {editandoRFID,       retorna,            aguardandoInfoUser, a36},
   {editandoRFID,       timeOutAguardando,  aguardandoInfoUser, a36},
-  {editandoRFID,       confirmaAlteracao,  aguardandoInfoUser, a33},
   {editandoRFID,       descartaAlteracao,  aguardandoInfoUser, a39},
-
-  {selecionarUser,     teclaRecebida,      selecionarUser,     a11},
-  {selecionarUser,     editarInfos,        aguardandoInfoUser, a23},
-  {selecionarUser,     retorna,            trancada,           a40},
-  {selecionarUser,     timeOutAguardando,  trancada,           a40},
+  
 };
 
 extern matriz matrizTransicaoEstados[numEstados][numEventos];
