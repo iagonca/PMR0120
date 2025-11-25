@@ -117,7 +117,6 @@ void executarAcao(int codigoAcao) {
         
         case a11: // computa tecla
             teclado.selecaoSelecionarUser();
-            acrescentaEvento(millis(),editarInfos,0);
             break;
         
         case a12: // computa tecla A ou B para selecionar rfid ou senha

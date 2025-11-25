@@ -162,6 +162,7 @@ void Teclado::selecaoSelecionarUser() {
         lcd.setCursor(1,0);
         lcd.print("Usuario ");
         lcd.print(n_usuario);
+        acrescentaEvento(millis(),editarInfos,0);
     }
     else {
         lcd.clear();
@@ -178,6 +179,8 @@ void Teclado::selecaoAguardandoInfoUser() {
         case 'B':
             acrescentaEvento(millis(), editarRFID, 0);
             break;
+        case '*':
+            
     }
 }
 

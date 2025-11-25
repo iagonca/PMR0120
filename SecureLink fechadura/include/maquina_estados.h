@@ -60,12 +60,12 @@ enum EVENTOS {
 
 enum ACOES {
   nenhumaAcao = -1,
-  a01, a02, a03, a04, a05, a06, a07, a08, a09, a10,
+  a00, a01, a02, a03, a04, a05, a06, a07, a08, a09, a10,
   a11, a12, a13, a14, a15, a16, a17, a18, a19, a20,
   a21, a22, a23, a24, a25, a26, a27, a28, a29, a30,
   a31, a32, a33, a34, a35, a36, a37, a38, a39, a40,
   a41, a42, a43, a44, a45, a46, a47, a48, a49, a50,
-  a51, a52, a53, a54, a55, a56, a57, a58, a59, a60
+  a51, a52, a53, a54, a55, a56, a57, a58, a59,
 };
 
 typedef struct matriz{
@@ -93,7 +93,7 @@ static const transicao transicoes [] = {
   {emAutenticacao,     teclaRecebida,      emAutenticacao,     a04},
   {emAutenticacao,     rfidCorreto,        aberta,             a05},
   {emAutenticacao,     senhaCorreta,       aberta,             a05},
-  {emAutenticacao,     senhaAdmVerificada, emConfiguracao,     a06},
+  {emAutenticacao,     senhaAdmVerificada, selecionarUser,     a06},
 
   {aberta,             portaFechada,       trancada,           a07},
 
@@ -110,7 +110,7 @@ static const transicao transicoes [] = {
   {aguardandoInfoUser, editarSenha,        editandoSenha,      a26},
   {aguardandoInfoUser, editarRFID,         editandoRFID,       a27},
 
-  {editandoSenha,      teclaRecebida,      editarSenha,        a29},
+  {editandoSenha,      teclaRecebida,      editandoSenha,      a29},
   {editandoSenha,      confirmaAlteracao,  aguardandoInfoUser, a32},
   {editandoSenha,      timeOutAguardando,  aguardandoInfoUser, a35},
   {editandoSenha,      descartaAlteracao,  aguardandoInfoUser, a38},
