@@ -67,6 +67,7 @@ class Relay;
 class PIR;
 class Buzzer;
 class FimDeCurso;
+class RFID;
 
 extern char senha[6];
 extern char keys[KEYPAD_ROWS][KEYPAD_COLS];
@@ -84,6 +85,7 @@ extern Relay rele;
 extern PIR movimento;
 extern Buzzer buzzer;
 extern FimDeCurso sensorPorta;
+extern RFID rfid;
 
 /*### MÁQUINA DE ESTADOS ###*/
 #define MAX_EVENTO 50
@@ -100,5 +102,6 @@ Evento obterEvento(void);
 #define TAMANHO_FILA 5
 extern int estado;
 extern int codigoAcao;
+extern String input;
 
 #endif

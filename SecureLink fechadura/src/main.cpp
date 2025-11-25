@@ -122,6 +122,15 @@ void taskMaqEstados(void *pvParameters){
     movimento.update();
     teclado.update();
     sensorPorta.update();
+    
+    if (Serial.available() > 0) {
+      String command = Serial.readStringUntil('\n');
+      command.trim();
+      if (command.length() > 0) {
+        input = command;
+        rfid.update();
+      }
+    }
 
     if (xQueueReceive(filaEventos, &evento, portMAX_DELAY) != pdPASS)
     {

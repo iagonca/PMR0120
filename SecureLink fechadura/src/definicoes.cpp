@@ -11,6 +11,7 @@ QueueHandle_t filaEventos;
 SemaphoreHandle_t xBinarySemaphore;
 SemaphoreHandle_t semaforoVermelho;
 SemaphoreHandle_t semaforoVerde;
+String input;
 
 
 /*### SETUP COMPONENTES ####*/
@@ -37,6 +38,7 @@ Relay rele(13);
 PIR movimento(7);
 Buzzer buzzer(6);
 FimDeCurso sensorPorta(0);
+RFID rfid;
 
 
 /*### MÁQUINA DE ESTADOS ###*/

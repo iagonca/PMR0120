@@ -39,12 +39,7 @@ class Teclado{
 };
 
 class RFID {
-  private:
-    const char* tagValida;
-    
   public:
-    RFID(const char* tag) : tagValida(tag) {}
-    
     void update();
 };
 

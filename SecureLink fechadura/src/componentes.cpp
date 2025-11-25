@@ -118,7 +118,24 @@ void Teclado::capturaSenha(char* senha) {
 
 
 void Teclado::capturaRFID(char *rfid) {
-    // a fazer
+    if (input.length() > 0) {
+        // Copia a tag RFID do input para a estrutura do usuário
+        input.toCharArray(usuarios[n_usuario].rfid, 20);
+
+        // Limpa o input para a próxima leitura
+        input = "";
+
+        // Dispara o evento de confirmação e mostra mensagem de sucesso
+        acrescentaEvento(millis(), confirmaAlteracao, 0);
+        lcd.mostrarSucesso("RFID salvo!");
+    }
+
+    // Permite cancelar a operação com a tecla '*'
+    else if (tecla == '*') {
+        counterSenha = 0;
+        acrescentaEvento(millis(), retorna, 0);
+        lcd.mostrarCancelado();
+    }
 }
 
 void Teclado::retornar() {
@@ -149,7 +166,7 @@ void Teclado::selecaoSelecionarUser() {
     else {
         lcd.clear();
         lcd.setCursor(1,0);
-        lcd.print("Erro! ");
+        lcd.print("Erro!");
     }
 }
 
