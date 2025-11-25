@@ -161,7 +161,7 @@ void Teclado::selecaoSelecionarUser() {
         lcd.clear();
         lcd.setCursor(1,0);
         lcd.print("Usuario ");
-        lcd.print(tecla);
+        lcd.print(n_usuario);
     }
     else {
         lcd.clear();
@@ -192,8 +192,10 @@ void PIR::update() {
 
 void RFID::update() {
   if (input.length() > 0) {
+    char rfidBuffer[20];
+    input.toCharArray(rfidBuffer, 20);
 
-    usuario resultado = verificaRFID(input);
+    usuario resultado = verificaRFID(rfidBuffer);
 
 	if (resultado.encontrado) {
         lcd.mostrarSenhaCorreta(resultado.nome);

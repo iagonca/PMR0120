@@ -300,7 +300,7 @@ class Display {
       // Próxima linha pode mostrar "# Sim * Nao"
     }
     
-    void mostrarSenhaCorreta(char* usuario) {
+    void mostrarSenhaCorreta(const char* usuario) {
       clear();
       setCursor(0, 0);
       print("Bem-vindo!");
@@ -310,7 +310,7 @@ class Display {
       print(usuario);
     }
     
-    void mostrarSenhaIncorreta(int tentativas) {
+    void mostrarSenhaIncorreta(const int tentativas) {
       clear();
       setCursor(0, 0);
       print("Senha incorreta");
