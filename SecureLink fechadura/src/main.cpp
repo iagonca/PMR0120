@@ -114,6 +114,7 @@ void removeEvento(int tipo)
 
 void taskMaqEstados(void *pvParameters){
   Evento evento;
+  static String serialBuffer = "";
 
   for (;;)
   {
@@ -123,12 +124,18 @@ void taskMaqEstados(void *pvParameters){
     teclado.update();
     sensorPorta.update();
     
-    if (Serial.available() > 0) {
-      String command = Serial.readStringUntil('\n');
-      command.trim();
-      if (command.length() > 0) {
-        input = command;
-        rfid.update();
+    // Leitura serial não-bloqueante
+    while (Serial.available() > 0) {
+      char receivedChar = (char)Serial.read();
+      if (receivedChar == '\n') {
+        serialBuffer.trim();
+        if (serialBuffer.length() > 0) {
+          String input = serialBuffer; // Copia para a variável global
+          rfid.update(input);      // Processa o RFID lido
+        }
+        serialBuffer = ""; // Limpa o buffer para a próxima leitura
+      } else {
+        serialBuffer += receivedChar; // Adiciona o caractere ao buffer
       }
     }
 

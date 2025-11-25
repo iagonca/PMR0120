@@ -40,7 +40,7 @@ class Teclado{
 
 class RFID {
   public:
-    void update();
+    void update(String input);
 };
 
 class Relay{

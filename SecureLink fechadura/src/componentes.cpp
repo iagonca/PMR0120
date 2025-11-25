@@ -190,7 +190,7 @@ void PIR::update() {
     ultimoEstado = estadoAtual;
 }
 
-void RFID::update() {
+void RFID::update(String input) {
   if (input.length() > 0) {
     char rfidBuffer[20];
     input.toCharArray(rfidBuffer, 20);
