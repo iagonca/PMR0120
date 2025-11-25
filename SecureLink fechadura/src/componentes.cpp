@@ -73,7 +73,7 @@ void Teclado::incluir_na_senha(char* senha) {
         counterSenha = 0;
         acrescentaEvento(millis(), retorna, 0);
 
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
     }
 }
 
@@ -118,7 +118,7 @@ void Teclado::capturaSenha(char* senha) {
         counterSenha = 0;
         acrescentaEvento(millis(), retorna, 0);
 
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
     }
 }
 
@@ -135,7 +135,7 @@ void Teclado::capturaRFID(char *rfid) {
     else if (tecla == '*') {
         counterSenha = 0;
         acrescentaEvento(millis(), retorna, 0);
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
     }
 }
 
@@ -151,7 +151,7 @@ void Teclado::confirmaExclusao() {
         acrescentaEvento(millis(), salvandoDados, 0);
     }
     else if (tecla == '*') {
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
         acrescentaEvento(millis(), retorna, 0);
     }
 }
@@ -170,7 +170,7 @@ void Teclado::selecaoSelecionarUser() {
         counterSenha = 0;
         acrescentaEvento(millis(), retorna, 0);
 
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
     }
 
     else {
@@ -191,7 +191,7 @@ void Teclado::selecaoAguardandoInfoUser() {
         case '*':
             counterSenha = 0;
             acrescentaEvento(millis(), retorna, 0);
-            lcd.mostrarCancelado();
+            //lcd.mostrarCancelado();
             break;
     }
 }
