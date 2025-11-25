@@ -117,6 +117,7 @@ void executarAcao(int codigoAcao) {
         
         case a11: // computa tecla
             teclado.selecaoSelecionarUser();
+            acrescentaEvento(millis(),editarInfos,0);
             break;
         
         case a12: // computa tecla A ou B para selecionar rfid ou senha
@@ -146,6 +147,7 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a26: // printa na tela "digite a senha"
+            removeEvento(timeOutAguardando);
             lcd.clear();
             lcd.setCursor(0,0);
             lcd.print("Digite a nova");
@@ -162,7 +164,7 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a29: // computa a tecla e printa ela
-            // teclado.receberNovaSenha()
+            teclado.capturaSenha(&senha[0]);
             break;
 
         case a30: // computa o novo RFID
@@ -170,6 +172,13 @@ void executarAcao(int codigoAcao) {
             break;
 
         case a32: // salva a senha e printa na tela "aguardando info do usuário"
+            removeEvento(timeOutAguardando);
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("A: editar RFID");
+            lcd.setCursor(1,0);
+            lcd.print("B: editar senha");
+            acrescentaEvento(millis()+60000,timeOutAguardando,0);
             Serial.println("Aguardando info do usuário.");
             break;
 
@@ -177,7 +186,8 @@ void executarAcao(int codigoAcao) {
             Serial.println("Aguardando info do usuário.");
             break;
 
-        case a35: // 
+        case a35: //
+            removeEvento(timeOutAguardando); 
             lcd.clear();
             lcd.setCursor(0,0);
             lcd.print("A: editar RFID");
