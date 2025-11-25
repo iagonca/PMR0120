@@ -14,11 +14,12 @@ struct usuario {
 
 // Lista de usuários para carregar automaticamente (Edite aqui para adicionar mais)
 const usuario usuariosFixos[] = {
-    {"1", "12345", "BD 31 15 2B", true},
-    {"2",  "11111", "BD 31 15 2C", false},
-    {"3", "22222", "BD 31 15 2D", false},
-    {"4", "33333", "BD 31 15 2E", false},
-    {"5",   "44444", "BD 31 15 2F", false}
+    {"0", "12345", "BD 31 15 2A", true},
+    {"1", "11111", "BD 31 15 2B", false},
+    {"2", "22222", "BD 31 15 2C", false},
+    {"3", "33333", "BD 31 15 2D", false},
+    {"4", "44444", "BD 31 15 2E", false},
+    {"5", "55555", "BD 31 15 2F", false}
 };
 
 // Array de usuários em memória
