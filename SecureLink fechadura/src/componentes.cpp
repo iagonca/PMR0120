@@ -68,11 +68,17 @@ void Teclado::incluir_na_senha(char* senha) {
         lcd.setCursor(1, counterSenha);
         lcd.print(" ");
     }
+
+    else if (tecla == '*') {
+        counterSenha = 0;
+        acrescentaEvento(millis(), retorna, 0);
+
+        //lcd.mostrarCancelado();
+    }
 }
 
 void Teclado::capturaSenha(char* senha) {
     if (tecla >= '0' && tecla <= '9') {
-        // int n = tecla - '0';
 
         if (counterSenha == 0) {
             lcd.clear();
@@ -112,29 +118,24 @@ void Teclado::capturaSenha(char* senha) {
         counterSenha = 0;
         acrescentaEvento(millis(), retorna, 0);
 
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
     }
 }
 
-
 void Teclado::capturaRFID(char *rfid) {
     if (input.length() > 0) {
-        // Copia a tag RFID do input para a estrutura do usuário
         input.toCharArray(usuarios[n_usuario].rfid, 20);
 
-        // Limpa o input para a próxima leitura
         input = "";
 
-        // Dispara o evento de confirmação e mostra mensagem de sucesso
         acrescentaEvento(millis(), confirmaAlteracao, 0);
         lcd.mostrarSucesso("RFID salvo!");
     }
 
-    // Permite cancelar a operação com a tecla '*'
     else if (tecla == '*') {
         counterSenha = 0;
         acrescentaEvento(millis(), retorna, 0);
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
     }
 }
 
@@ -150,7 +151,7 @@ void Teclado::confirmaExclusao() {
         acrescentaEvento(millis(), salvandoDados, 0);
     }
     else if (tecla == '*') {
-        lcd.mostrarCancelado();
+        //lcd.mostrarCancelado();
         acrescentaEvento(millis(), retorna, 0);
     }
 }
@@ -164,6 +165,14 @@ void Teclado::selecaoSelecionarUser() {
         lcd.print(n_usuario);
         acrescentaEvento(millis(),editarInfos,0);
     }
+
+    else if (tecla == '*') {
+        counterSenha = 0;
+        acrescentaEvento(millis(), retorna, 0);
+
+        //lcd.mostrarCancelado();
+    }
+
     else {
         lcd.clear();
         lcd.setCursor(1,0);
@@ -178,6 +187,11 @@ void Teclado::selecaoAguardandoInfoUser() {
             break;
         case 'B':
             acrescentaEvento(millis(), editarRFID, 0);
+            break;
+        case '*':
+            counterSenha = 0;
+            acrescentaEvento(millis(), retorna, 0);
+            //lcd.mostrarCancelado();
             break;
     }
 }
