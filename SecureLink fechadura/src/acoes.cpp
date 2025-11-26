@@ -32,6 +32,7 @@ void executarAcao(int codigoAcao) {
             lampada.ligar();
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
+            removeEvento(timeOutAguardando);
             acrescentaEvento(millis()+30000,timeOutAguardando,0);
             break;
 
