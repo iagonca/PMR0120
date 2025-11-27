@@ -86,6 +86,8 @@ static const transicao transicoes [] = {
   
   {trancada,           pessoaPresente,     emAutenticacao,     a01},
   {trancada,           teclaRecebida,      emAutenticacao,     a01},
+  {trancada,           rfidIncorreto,      alarmeDisparado,    a02}, // Se ler tag errada direto, dispara alarme
+  {trancada,           rfidCorreto,        aberta,             a05}, // Se ler tag certa direto, abre a porta
 
   {emAutenticacao,     rfidIncorreto,      alarmeDisparado,    a02},
   {emAutenticacao,     maxTentativas,      alarmeDisparado,    a02},

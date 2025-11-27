@@ -81,20 +81,6 @@
       "attrs": {}
     },
     {
-      "type": "wokwi-text",
-      "id": "text1",
-      "top": -240,
-      "left": -249.6,
-      "attrs": { "text": "Relé: Luz Verde = Porta trancada\n" }
-    },
-    {
-      "type": "wokwi-text",
-      "id": "text2",
-      "top": -211.2,
-      "left": -249.6,
-      "attrs": { "text": "Chave para direita: Porta Fechada\nChave para Esquerda: Porta Aberta\n" }
-    },
-    {
       "type": "wokwi-pushbutton",
       "id": "btn1",
       "top": -163.8,
@@ -130,7 +116,6 @@
     [ "keypad1:C3", "mega:A9", "gold", [ "v182.4", "h-316.95" ] ],
     [ "keypad1:C4", "mega:A8", "#8f4814", [ "v192", "h-336.3" ] ],
     [ "btn1:2.r", "bb1:bn.25", "black", [ "v0" ] ],
-    [ "btn1:1.r", "mega:2", "violet", [ "v96.2", "h-144" ] ],
     [ "r1:1", "bb1:9b.h", "", [ "$bb" ] ],
     [ "r1:2", "bb1:bn.7", "", [ "$bb" ] ],
     [ "r2:1", "bb1:11b.h", "", [ "$bb" ] ],
@@ -150,7 +135,8 @@
     [ "relay1:IN", "bb1:4b.f", "", [ "$bb" ] ],
     [ "pir1:VCC", "bb1:19b.f", "", [ "$bb" ] ],
     [ "pir1:OUT", "bb1:20b.f", "", [ "$bb" ] ],
-    [ "pir1:GND", "bb1:21b.f", "", [ "$bb" ] ]
+    [ "pir1:GND", "bb1:21b.f", "", [ "$bb" ] ],
+    [ "btn1:1.r", "mega:2", "violet", [ "v96.2", "h-172.8" ] ]
   ],
   "dependencies": {}
 }

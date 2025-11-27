@@ -220,7 +220,7 @@ void RFID::update() {
         }
 
         else {
-            lcd.mostrarErro("RFID Incorreto");
+            //lcd.mostrarErro("RFID Incorreto");
             acrescentaEvento(millis(), rfidIncorreto, 0);
         }
     }

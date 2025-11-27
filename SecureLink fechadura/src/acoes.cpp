@@ -33,7 +33,7 @@ void executarAcao(int codigoAcao) {
             ledVerdeLiberado = true;
             xSemaphoreGive(semaforoVerde);
             removeEvento(timeOutAguardando);
-            acrescentaEvento(millis()+30000,timeOutAguardando,0);
+            acrescentaEvento(millis()+35000,timeOutAguardando,0);
             break;
 
         case a02: // dispara alarme; liga led vermelho; desliga led verde
@@ -91,7 +91,7 @@ void executarAcao(int codigoAcao) {
             lcd.print("Editar usuario.");
             lcd.setCursor(1,0);
             lcd.print("Selecione: 1 a 5");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             // 
             break;
         
@@ -132,7 +132,7 @@ void executarAcao(int codigoAcao) {
             lcd.print("A: editar Senha");
             lcd.setCursor(1,0);
             lcd.print("B: editar RFID");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             // 
             break;
         
@@ -143,7 +143,7 @@ void executarAcao(int codigoAcao) {
             lcd.print("Editar usuario.");
             lcd.setCursor(1,0);
             lcd.print("Selecione: 1 a 5");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             break;
 
         case a26: // printa na tela "digite a senha"
@@ -153,14 +153,14 @@ void executarAcao(int codigoAcao) {
             lcd.print("Digite a nova");
             lcd.setCursor(1,0);
             lcd.print("senha.");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             break;
 
         case a27: // printa na tela "apresente RFID"
             lcd.clear();
             lcd.setCursor(0,0);
             lcd.print("Aproxime RFID");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             break;
 
         case a29: // computa a tecla e printa ela
@@ -175,10 +175,10 @@ void executarAcao(int codigoAcao) {
             removeEvento(timeOutAguardando);
             lcd.clear();
             lcd.setCursor(0,0);
-            lcd.print("A: editar RFID");
+            lcd.print("A: editar senha");
             lcd.setCursor(1,0);
-            lcd.print("B: editar senha");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            lcd.print("B: editar RFID");
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             Serial.println("Aguardando info do usuário.");
             break;
 
@@ -186,20 +186,20 @@ void executarAcao(int codigoAcao) {
             removeEvento(timeOutAguardando);
             lcd.clear();
             lcd.setCursor(0,0);
-            lcd.print("A: editar RFID");
+            lcd.print("A: editar senha");
             lcd.setCursor(1,0);
-            lcd.print("B: editar senha");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            lcd.print("B: editar RFID");
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             break;
 
         case a35: //
             removeEvento(timeOutAguardando); 
             lcd.clear();
             lcd.setCursor(0,0);
-            lcd.print("A: editar RFID");
+            lcd.print("A: editar senha");
             lcd.setCursor(1,0);
-            lcd.print("B: editar senha");
-            acrescentaEvento(millis()+10000,timeOutAguardando,0);
+            lcd.print("B: editar RFID");
+            acrescentaEvento(millis()+30000,timeOutAguardando,0);
             break;
 
         case a36: // printa na tela "aguardando indo do usuário"
