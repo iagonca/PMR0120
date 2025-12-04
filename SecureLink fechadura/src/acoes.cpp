@@ -90,7 +90,7 @@ void executarAcao(int codigoAcao) {
             lcd.setCursor(0,0);
             lcd.print("Editar usuario.");
             lcd.setCursor(1,0);
-            lcd.print("Selecione: 1 a 5");
+            lcd.print("Selecione: 1 a 4");
             acrescentaEvento(millis()+30000,timeOutAguardando,0);
             // 
             break;

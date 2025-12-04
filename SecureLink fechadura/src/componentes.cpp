@@ -165,7 +165,8 @@ void Teclado::selecaoSelecionarUser() {
         lcd.setCursor(1,0);
         lcd.print("Usuario ");
         lcd.print(n_usuario);
-        acrescentaEvento(millis(),editarInfos,0);
+        if(n_usuario >= 1 && n_usuario <= 4) acrescentaEvento(millis(),editarInfos,0);
+        else acrescentaEvento(millis(), inputInvalido,0);
     }
 
     else if (tecla == '*') {

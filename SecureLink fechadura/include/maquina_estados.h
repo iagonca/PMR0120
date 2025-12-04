@@ -6,7 +6,7 @@
 #define false 0
 
 #define numEstados 15
-#define numEventos 26
+#define numEventos 27
 // #define numAcoes 0 // preencher
 
 
@@ -55,7 +55,8 @@ enum EVENTOS {
   novoRFID,
   confirmaAlteracao,
   descartaAlteracao,
-  retorna
+  retorna,
+  inputInvalido
 };
 
 enum ACOES {
@@ -86,8 +87,8 @@ static const transicao transicoes [] = {
   
   {trancada,           pessoaPresente,     emAutenticacao,     a01},
   {trancada,           teclaRecebida,      emAutenticacao,     a01},
-  {trancada,           rfidIncorreto,      alarmeDisparado,    a02}, // Se ler tag errada direto, dispara alarme
-  {trancada,           rfidCorreto,        aberta,             a05}, // Se ler tag certa direto, abre a porta
+  {trancada,           rfidIncorreto,      alarmeDisparado,    a02},
+  {trancada,           rfidCorreto,        aberta,             a05},
 
   {emAutenticacao,     rfidIncorreto,      alarmeDisparado,    a02},
   {emAutenticacao,     maxTentativas,      alarmeDisparado,    a02},
@@ -102,6 +103,7 @@ static const transicao transicoes [] = {
   {alarmeDisparado,    timeOutAlarme,      trancada,           a08},
 
   {selecionarUser,     teclaRecebida,      selecionarUser,     a11},
+  {selecionarUser,     inputInvalido,      selecionarUser,     a06},
   {selecionarUser,     editarInfos,        aguardandoInfoUser, a23},
   {selecionarUser,     retorna,            trancada,           a40},
   {selecionarUser,     timeOutAguardando,  trancada,           a40},
