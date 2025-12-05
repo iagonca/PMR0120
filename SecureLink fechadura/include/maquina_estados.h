@@ -74,13 +74,9 @@ typedef struct matriz{
   int acao;
 } matriz;
 
-// inicializacao das funcoes
 void iniciarMaquinaEstados();
-// void iniciaSistema();
-// void acrescentaEvento(unsigned long instante, int tipo, int dado);
 int obterAcao(int estado, int evento);
 int obterProximoEstado(int estado, int evento);
-// void executarAcao(int codigoAcao);
 
 struct transicao {int estado; int evento; int prox_estado; int acao; };
 static const transicao transicoes [] = {
